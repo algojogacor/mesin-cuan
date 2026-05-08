@@ -47,27 +47,43 @@ Bayangkan memiliki tim produksi lengkap — riset tren, penulis naskah, voice-ov
 
 ---
 
-## ⚙️ Core Engines
+## ⚙️ Arsitektur 12 Engine
 
 ### 📡 Viral Loop Engine
-Mesin riset tren real-time yang memadukan **YouTube Data API v3**, **Google Trends (via Cloudflare)**, dan **YouTube Search Suggestions**. Hasilnya disaring oleh AI Ollama untuk memilih topik dengan potensi viral tertinggi — diperbarui setiap 6 jam tanpa intervensi manual.
+Riset tren real-time menggabungkan **YouTube Data API v3**, **Google Trends**, dan **YouTube Search Suggestions** — diperbarui setiap 6 jam.
+
+### 🧠 Dual Parallel AI Scripting
+**Qwen + Ollama generate naskah secara paralel**, lalu saling menilai dengan cross-provider scoring (anti-sycophancy). Skor tertinggi yang lanjut ke produksi. Fallback chain: Ollama → Qwen → Groq.
+
+### 🎯 Script Quality Scorer
+Multi-dimensional scoring: **hook strength**, **curiosity gap**, **pacing**, **emotional impact**, **retention prediction** — naskah di bawah threshold otomatis ditulis ulang.
+
+### 🔗 Hook Engine
+Auto-inject hook pembuka yang mempertahankan retensi penonton di 3 detik pertama — berbasis data retention analytics per channel.
+
+### 📚 Memory Engine
+Melacak topik yang sudah diproduksi — mencegah pengulangan konten dan memastikan variasi antar video.
+
+### 🔍 Research Engine
+Web research otomatis sebelum penulisan naskah — memastikan fakta akurat dan konteks terkini.
+
+### 📺 Series Engine
+Auto-generate konten berseri (Part 1, 2, 3...) dengan cliffhanger logic dan call-back ke episode sebelumnya.
 
 ### 🌟 Neon Visuals v5
-Renderer video sinematik berbasis FFmpeg dengan efek estetik premium:
-- **Teks glowing neon** dengan animasi masuk yang dinamis
-- **Gradient panel glassmorphism** sebagai latar narasi
-- **Cinematic letterbox** + vignette + color grading otomatis
-- Output: **Shorts 9:16 (60 detik)** & **Long Form 16:9 (8–12 menit)**
+Renderer video sinematik FFmpeg: **teks glowing neon**, **glassmorphism panels**, **cinematic letterbox** + vignette + color grading.
 
 ### 🔊 Smart SFX Mixer
-Lapisan suara cerdas yang menyesuaikan sound effect berdasarkan niche konten:
-- 🩸 **Horror** → heartbeat, thunderclap, whisper ambience
-- 🧠 **Psychology** → mind-tone, focus hum, deep bass
-- 💪 **Motivation** → crowd cheer, stadium echo, power hit
-- 📜 **History** → parchment ambience, dramatic orchestral
+Sound effect otomatis berdasarkan niche: Horror → heartbeat/thunder, Psychology → mind-tone/focus hum, Motivation → crowd cheer/stadium echo.
+
+### 🖼️ Thumbnail Intelligence
+AI-driven thumbnail text & style selection berdasarkan niche dan topik — optimasi CTR.
 
 ### 📊 OAuth2 Analytics
-Koneksi langsung ke **YouTube Analytics API v2** menggunakan OAuth2 Authorization Code Flow. Dashboard retensi per channel memberikan insight mendalam tentang performa video, drop-off poin, dan pola engagement untuk optimasi konten berikutnya.
+Integrasi **YouTube Analytics API v2** — dashboard retensi per channel, analisis drop-off, optimasi konten.
+
+### ⚡ Pipeline Estimator
+Prediksi ETA untuk batch render multi-channel — estimasi akurat sebelum eksekusi.
 
 ---
 
@@ -76,18 +92,21 @@ Koneksi langsung ke **YouTube Analytics API v2** menggunakan OAuth2 Authorizatio
 | Komponen | Teknologi | Fungsi |
 |---|---|---|
 | **Bahasa** | Python 3.11+ | Orkestrasi pipeline |
+| **AI Primary** | Qwen self-hosted + Ollama | Dual parallel script generation + cross-scoring |
+| **AI Quality** | Script Quality Scorer | Multi-dimensional validation |
+| **AI Vision QC** | NVIDIA API / Ollama Vision | Quality control video |
+| **AI Fallback** | Groq | Last-resort script generation |
+| **Text-to-Speech** | F5-TTS · Edge TTS · Coqui | 50+ suara multilingual |
 | **Rendering** | FFmpeg 7.x | Render video & audio |
-| **AI Script** | Ollama · Gemini · Groq · Claude | Penulisan naskah otomatis (fallback chain) |
-| **AI Vision QC** | Google Gemini Vision | Quality control video |
-| **Text-to-Speech** | Google Cloud TTS · Edge TTS · Coqui | 50+ suara multilingual |
 | **Footage** | Pexels API · Pixabay API | B-roll footage + clip cache |
 | **SFX** | Freesound API | Sound effect otomatis |
 | **Upload** | YouTube Data API v3 (OAuth2) | Upload & scheduling |
-| **Analytics** | YouTube Analytics API v2 (OAuth2) | Retensi & insight |
-| **Trending** | YouTube API · Cloudflare Browser Rendering | Deteksi tren real-time |
+| **Analytics** | YouTube Analytics API v2 | Retensi & insight |
+| **Trending** | YouTube API · Google Trends | Deteksi tren real-time |
+| **Research** | Web scraping + NLP | Konteks akurat sebelum naskah |
 | **Storage** | Google Drive API v3 | Antrian upload |
 | **Notifikasi** | Telegram Bot API | Alert real-time |
-| **Worker** | Koyeb | Upload otomatis dari cloud |
+| **Scheduler** | APScheduler | Campaign automation |
 
 ---
 
@@ -192,27 +211,43 @@ Imagine having a complete production team — trend researcher, scriptwriter, vo
 
 ---
 
-## ⚙️ Core Engines
+## ⚙️ 12-Engine Architecture
 
 ### 📡 Viral Loop Engine
-A real-time trend intelligence system combining **YouTube Data API v3**, **Google Trends (via Cloudflare)**, and **YouTube Search Suggestions**. Results are filtered by Ollama AI to select topics with the highest viral potential — refreshed every 6 hours, zero manual effort required.
+Real-time trend intelligence combining **YouTube Data API v3**, **Google Trends**, and **YouTube Search Suggestions** — refreshed every 6 hours.
+
+### 🧠 Dual Parallel AI Scripting
+**Qwen + Ollama generate scripts in parallel**, then cross-score each other (anti-sycophancy). Highest-scoring script proceeds to production. Fallback chain: Ollama → Qwen → Groq.
+
+### 🎯 Script Quality Scorer
+Multi-dimensional scoring: **hook strength**, **curiosity gap**, **pacing**, **emotional impact**, **retention prediction** — scripts below threshold are auto-rewritten.
+
+### 🔗 Hook Engine
+Auto-injects opening hooks that maintain viewer retention in the first 3 seconds — driven by per-channel retention analytics.
+
+### 📚 Memory Engine
+Tracks previously produced topics — prevents content repetition and ensures variety across videos.
+
+### 🔍 Research Engine
+Automated web research before script generation — ensures factual accuracy and up-to-date context.
+
+### 📺 Series Engine
+Auto-generates multi-part content (Part 1, 2, 3...) with cliffhanger logic and cross-episode callbacks.
 
 ### 🌟 Neon Visuals v5
-A cinematic video renderer built on FFmpeg with premium aesthetic effects:
-- **Glowing neon text** with dynamic entrance animations
-- **Glassmorphism gradient panels** as narration backgrounds
-- **Cinematic letterbox** + vignette + automatic color grading
-- Output: **Shorts 9:16 (60s)** & **Long Form 16:9 (8–12 min)**
+Cinematic FFmpeg renderer: **glowing neon text**, **glassmorphism panels**, **cinematic letterbox** + vignette + color grading.
 
 ### 🔊 Smart SFX Mixer
-An intelligent audio layer that maps sound effects to content niche:
-- 🩸 **Horror** → heartbeat, thunderclap, whisper ambience
-- 🧠 **Psychology** → mind-tone, focus hum, deep bass
-- 💪 **Motivation** → crowd cheer, stadium echo, power hit
-- 📜 **History** → parchment ambience, dramatic orchestral
+Niche-aware sound effects: Horror → heartbeat/thunder, Psychology → mind-tone/focus hum, Motivation → crowd cheer/stadium echo.
+
+### 🖼️ Thumbnail Intelligence
+AI-driven thumbnail text & style selection based on niche and topic — CTR optimization.
 
 ### 📊 OAuth2 Analytics
-Direct integration with **YouTube Analytics API v2** via OAuth2 Authorization Code Flow. A per-channel retention dashboard delivers deep insight into video performance, audience drop-off points, and engagement patterns for continuous content optimization.
+**YouTube Analytics API v2** integration — per-channel retention dashboard, drop-off analysis, content optimization.
+
+### ⚡ Pipeline Estimator
+ETA prediction for multi-channel batch renders — accurate estimation before execution.
 
 ---
 
@@ -221,18 +256,21 @@ Direct integration with **YouTube Analytics API v2** via OAuth2 Authorization Co
 | Layer | Technology | Role |
 |---|---|---|
 | **Language** | Python 3.11+ | Pipeline orchestration |
+| **AI Primary** | Qwen self-hosted + Ollama | Dual parallel script generation + cross-scoring |
+| **AI Quality** | Script Quality Scorer | Multi-dimensional validation |
+| **AI Vision QC** | NVIDIA API / Ollama Vision | Automated quality control |
+| **AI Fallback** | Groq | Last-resort script generation |
+| **Text-to-Speech** | F5-TTS · Edge TTS · Coqui | 50+ multilingual voices |
 | **Rendering** | FFmpeg 7.x | Video & audio composition |
-| **AI Script** | Ollama · Gemini · Groq · Claude | Automated scriptwriting (fallback chain) |
-| **AI Vision QC** | Google Gemini Vision | Automated quality control |
-| **Text-to-Speech** | Google Cloud TTS · Edge TTS · Coqui | 50+ multilingual voices |
 | **Footage** | Pexels API · Pixabay API | B-roll footage + clip cache |
 | **SFX** | Freesound API | Automated sound effects |
 | **Upload** | YouTube Data API v3 (OAuth2) | Scheduled uploads |
-| **Analytics** | YouTube Analytics API v2 (OAuth2) | Retention & insights |
-| **Trending** | YouTube API · Cloudflare Rendering | Real-time trend detection |
+| **Analytics** | YouTube Analytics API v2 | Retention & insights |
+| **Trending** | YouTube API · Google Trends | Real-time trend detection |
+| **Research** | Web scraping + NLP | Accurate context before scripting |
 | **Storage** | Google Drive API v3 | Upload queue |
 | **Notifications** | Telegram Bot API | Real-time alerts |
-| **Worker** | Koyeb | Cloud-based upload automation |
+| **Scheduler** | APScheduler | Campaign automation |
 
 ---
 
@@ -327,50 +365,15 @@ python main.py --analytics
 
 ---
 
-## 📜 License & Permission / Lisensi & Izin
+## 📜 License
 
-> **Mesin Cuan Viral Architect v5** dilindungi oleh **Custom Proprietary License**.  
-> Kode ini dibuat publik untuk tujuan edukatif dan portofolio — **bukan open-source**.
+**MIT License** — bebas pakai, modifikasi, dan distribusi untuk keperluan apapun, termasuk komersial.
 
-### 🇮🇩 Ketentuan Penggunaan (Indonesia)
-
-| Aktivitas | Status |
-|---|---|
-| 📖 Mempelajari kode untuk keperluan pribadi | ✅ Diizinkan |
-| 🔬 Referensi akademik non-komersial | ✅ Diizinkan |
-| 🍴 Fork untuk eksperimen pribadi (tidak dipublikasikan) | ✅ Diizinkan |
-| 💰 Penggunaan komersial (layanan berbayar, SaaS, dll.) | ❌ **Dilarang tanpa izin** |
-| 📢 Distribusi publik / deploy sebagai produk | ❌ **Dilarang tanpa izin** |
-| ✏️ Modifikasi dan distribusi ulang | ❌ **Dilarang tanpa izin** |
-
-**Untuk meminta izin forking, modifikasi, distribusi, atau penggunaan komersial:**
-
-> 📩 Hubungi via Instagram: **[@aryarizky04](https://www.instagram.com/aryarizky04/)**  
-> Semua permintaan ditinjau secara individual. Otorisasi harus diterima **secara tertulis** sebelum aktivitas dimulai.
+Lihat [LICENSE](LICENSE) untuk teks lengkap.
 
 ---
 
-### 🇬🇧 Terms of Use (English)
-
-| Activity | Status |
-|---|---|
-| 📖 Studying the code for personal education | ✅ Permitted |
-| 🔬 Non-commercial academic reference | ✅ Permitted |
-| 🍴 Private fork for personal experimentation (not public) | ✅ Permitted |
-| 💰 Commercial use (paid service, SaaS, revenue generation) | ❌ **Prohibited without permission** |
-| 📢 Public distribution / deploy as a product | ❌ **Prohibited without permission** |
-| ✏️ Modification and redistribution | ❌ **Prohibited without permission** |
-
-**To request permission for forking, modification, distribution, or commercial use:**
-
-> 📩 Contact via Instagram: **[@aryarizky04](https://www.instagram.com/aryarizky04/)**  
-> All requests are reviewed on a case-by-case basis. Written authorization must be received before any restricted activity begins.
-
----
-
-*Mesin Cuan Viral Architect v5 — Custom Proprietary License*
-
-**Built for creators who refuse to be limited by time.**
+*Built for creators who refuse to be limited by time.*
 
 ```
 [ 🤖 AI-POWERED ]  [ 🎬 CINEMATIC ]  [ 📡 VIRAL-READY ]  [ 🔄 24/7 AUTO ]
