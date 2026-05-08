@@ -12,6 +12,20 @@ Field "script" HARUS berisi 80–120 kata. Hitung dengan teliti sebelum output.
 Target tempo baca: 2.8–3.2 kata/detik (total durasi ≈ 30–40 detik narasi).
 Script di bawah 80 kata = SALAH TOTAL. Tulis ulang lebih panjang.
 
+PRIORITAS KUALITAS
+- Prioritas #1 = hook, eskalasi, dan rasa ancaman psikologis yang menahan swipe.
+- Prioritas #2 = sudut pandang yang terasa spesifik dan tidak generik.
+- Prioritas #3 = metadata seperti visual, keyword, dan description.
+- Jika ada trade-off, korbankan kerapian metadata dulu. Jangan korbankan kekuatan narasi.
+
+TARGET AGAR LOLOS QUALITY GATE
+- Kalimat pertama harus berisi fakta, angka, nama eksperimen, atau implikasi yang sangat konkret.
+- Kalimat kedua harus mengubah fakta itu menjadi ancaman personal, bukan sekadar menjelaskan lagi.
+- Bagian tengah harus naik, bukan berputar. Harus ada satu pattern interrupt yang membelokkan asumsi penonton.
+- Penutup harus meninggalkan rasa tidak aman, bukan terasa seperti promosi generik.
+- Hindari pola generik: klaim mengejutkan → penjelasan lurus → "follow/subscribe".
+- Pakai minimal satu angle atau kalimat yang terasa hanya cocok untuk topik ini, bukan template psikologi gelap umum.
+
 ════════════════════════════════
 FORMULA HOOK (2 KALIMAT PERTAMA — PALING KRITIS)
 ════════════════════════════════
@@ -60,17 +74,9 @@ STRUKTUR NARASI (WAJIB DIIKUTI)
 
 [PENUTUP & CTA — kata 91-120]:
   • Bangun ketegangan ekstrem. Akhiri dengan perasaan tidak tuntas — tinggalkan hook emosional tentang pikiran mereka.
-  • Pilih satu CTA dari daftar berikut (rotasi, jangan pakai yang sama terus):
-    - "Follow sebelum mereka hapus akun ini."
-    - "Subscribe untuk melindungi pikiranmu dari manipulasi ini."
-    - "Simpan video ini. Kamu akan butuh ini suatu hari nanti."
-    - "Subscribe — karena fakta ini tidak akan diajarkan di sekolah manapun."
-    - "Komentar [SADAR] kalau kamu sudah tahu kebenaran ini."
-    - "Bagikan ke satu orang yang tidak tahu pikirannya sedang dimanipulasi."
-    - "Follow untuk kebenaran gelap yang tidak ingin diketahui industri ini."
-    - "Cek link di bio untuk fakta yang lebih gila."
-    - "Apakah kamu sadar? Komen di bawah."
-    - "Tag temanmu yang harus tahu ini sebelum terlambat." 
+  • CTA harus terasa sebagai konsekuensi alami dari reveal: bisa berupa peringatan, pertanyaan yang mengusik, tantangan, ajakan simpan, atau ajakan komentar yang nyambung langsung ke ancaman psikologisnya.
+  • CTA BOLEH menyebut follow/subscribe, tapi hanya jika terasa earned dan tidak terdengar seperti template promosi.
+  • DILARANG menutup hanya dengan "follow/subscribe untuk part 2" tanpa kaitan emosional dengan isi video.
 
 ════════════════════════════════
 INSTRUKSI VISUAL (field visual_cues)
@@ -95,10 +101,10 @@ SCRIPT:
 "Otakmu secara aktif membohongimu saat ini juga. Setiap kenangan yang kamu miliki telah diubah, diedit, dan direkonstruksi setiap kali kamu mengingatnya. Ini disebut rekonsolidasi memori — proses di mana otakmu secara harfiah menulis ulang ingatan agar sesuai dengan emosi dan keyakinanmu saat ini. Para ilmuwan di MIT menemukan bahwa bahkan ingatan yang paling jelas sekalipun bisa jadi sepenuhnya palsu. Elizabeth Loftus menanamkan kenangan palsu pada 25% partisipan hanya dengan sugesti sederhana. Masa lalumu bukanlah sebuah rekaman — itu adalah cerita yang terus ditulis ulang oleh otakmu. Subscribe untuk melindungi pikiranmu dari manipulasi ini."
 
 VISUAL_CUES untuk contoh di atas (panduan, buat yang sesuai topikmu):
-- "Saat 'membohongimu saat ini juga' → footage close-up mata bergerak cepat + efek glitch digital + zoom in slow"
-- "Saat 'rekonsolidasi memori' → animasi otak dengan neuron bercahaya + warna desaturated biru + text overlay 'FALSE MEMORY'"
-- "Saat 'Elizabeth Loftus menanamkan kenangan palsu' → footage ruang eksperimen kosong + suara tik jam + efek distorsi"
-- "Closing shot → layar gelap + teks putih kecil 'pikiranmu bukan milikmu' + silence 1 detik"
+- "at opening line → close-up eye movement, digital glitch overlay, slow zoom"
+- "at memory reconsolidation line → brain neuron animation, glowing synapses, desaturated blue tones"
+- "at false memory experiment line → empty experiment room, ticking clock, distortion effect"
+- "closing shot → black screen, small white text, one second silence"
 
 ════════════════════════════════
 CONTOH LENGKAP 2 (Topik Baru + Retensi Anchor + Visual Cues Benar)

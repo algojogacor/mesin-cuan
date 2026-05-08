@@ -24,6 +24,7 @@ import time
 import random
 import concurrent.futures
 from copy import deepcopy
+from typing import Callable
 import requests
 from engine.utils import get_logger, require_env, load_prompt, timestamp, save_json, channel_data_path, get_ollama_model
 
@@ -42,6 +43,8 @@ PROVIDER_SWITCH_DELAY = 60
 
 # Retry per provider kalau JSON gagal di-parse
 MAX_JSON_RETRY = 3
+ENABLE_AI_SCHEMA_REPAIR = os.environ.get("ENABLE_AI_SCHEMA_REPAIR", "1").lower() not in {"0", "false", "no"}
+AI_SCHEMA_REPAIR_MAX_CHARS = int(os.environ.get("AI_SCHEMA_REPAIR_MAX_CHARS", "18000"))
 
 # Ollama config
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -737,6 +740,168 @@ def _repair_json(raw: str, profile: str) -> dict:
     return json.loads(text)
 
 
+def _schema_repair_contract(profile: str) -> str:
+    if profile == "long_form":
+        return (
+            "Return a single JSON object with this canonical schema:\n"
+            "{\n"
+            '  "title": "string",\n'
+            '  "intro": "string",\n'
+            '  "segments": [{"title": "string", "narasi": "string"}],\n'
+            '  "outro": "string",\n'
+            '  "tags": ["string"],\n'
+            '  "keywords": ["string"],\n'
+            '  "description": "string",\n'
+            '  "chapters": ["0:00 Intro", "1:30 ..."]\n'
+            "}\n"
+            "Rules: keep the original language, preserve story content, preserve length, "
+            "map misplaced fields into the canonical keys, and never add prose outside JSON."
+        )
+    return (
+        "Return a single JSON object with this canonical shorts schema:\n"
+        "{\n"
+        '  "title": "string",\n'
+        '  "script": "string",\n'
+        '  "keywords": ["string"],\n'
+        '  "tags": ["string"],\n'
+        '  "description": "string",\n'
+        '  "comment_bait": "string",\n'
+        '  "hook_line": "string (optional)",\n'
+        '  "anchor_line": "string (optional)",\n'
+        '  "body_beats": ["string or short objects"] ,\n'
+        '  "final_reveal": "string (optional)",\n'
+        '  "cta_line": "string (optional)",\n'
+        '  "visual_beats": {"opening": "...", "middle": "...", "ending": "..."},\n'
+        '  "creative_direction": {"thumbnail_text": "...", "thumbnail_style": "...", "packaging_angle": "..."}\n'
+        "}\n"
+        "Rules: keep the original language, preserve all meaning, preserve narration length, "
+        "move misplaced content into the best matching keys, and never add prose outside JSON."
+    )
+
+
+def _parse_json_loose(raw: str, profile: str) -> dict:
+    cleaned = _clean_raw_json(raw)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        return _repair_json(cleaned, profile)
+
+
+def _repair_schema_with_ai(data: dict, profile: str, error_message: str) -> dict | None:
+    if not ENABLE_AI_SCHEMA_REPAIR or not isinstance(data, dict):
+        return None
+
+    payload_json = json.dumps(data, ensure_ascii=False, indent=2)
+    payload_json = payload_json[:AI_SCHEMA_REPAIR_MAX_CHARS]
+    prompt = (
+        "You are a JSON schema repairer for a video-script pipeline.\n"
+        f"The current JSON parsed successfully but its schema is invalid for profile='{profile}'.\n"
+        f"Validation error: {error_message}\n\n"
+        f"{_schema_repair_contract(profile)}\n\n"
+        "IMPORTANT:\n"
+        "- Do not invent a new story.\n"
+        "- Do not shorten the narration unless absolutely necessary to fit the correct field.\n"
+        "- If content is under the wrong key, move it.\n"
+        "- If a list/string type is wrong, normalize it.\n"
+        "- Reply with ONLY one valid JSON object.\n\n"
+        f"INPUT JSON:\n{payload_json}"
+    )
+
+    repair_attempts: list[tuple[str, Callable[[], dict]]] = []
+
+    if os.environ.get("QWEN_API_KEY"):
+        def _repair_with_qwen() -> dict:
+            api_key = require_env("QWEN_API_KEY")
+            last_error = None
+            for model_name in _qwen_models_to_try():
+                try:
+                    resp = _post_json_no_proxy(
+                        f"{QWEN_API_BASE.rstrip('/')}/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {api_key}",
+                            "Content-Type": "application/json",
+                        },
+                        payload={
+                            "model": model_name,
+                            "messages": [
+                                {
+                                    "role": "system",
+                                    "content": (
+                                        "Repair the JSON schema. Return only a raw JSON object. "
+                                        "No markdown, no commentary."
+                                    ),
+                                },
+                                {"role": "user", "content": prompt},
+                            ],
+                            "temperature": 0.1,
+                            "top_p": 0.9,
+                        },
+                        timeout=180,
+                    )
+                    resp.raise_for_status()
+                    raw = (
+                        resp.json()
+                        .get("choices", [{}])[0]
+                        .get("message", {})
+                        .get("content", "")
+                        .strip()
+                    )
+                    if not raw:
+                        raise ValueError("Qwen schema repair returned empty response")
+                    return _parse_json_loose(raw, profile)
+                except Exception as exc:
+                    last_error = exc
+            raise RuntimeError(f"Qwen schema repair gagal: {last_error}")
+
+        repair_attempts.append(("qwen", _repair_with_qwen))
+
+    def _repair_with_ollama() -> dict:
+        selected_model = get_ollama_model()
+        resp = requests.post(
+            f"{OLLAMA_BASE_URL}/api/chat",
+            json={
+                "model": selected_model,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": (
+                            "Repair the JSON schema. Return only a raw JSON object. "
+                            "No markdown, no commentary."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                "stream": False,
+                "format": "json",
+                "options": {
+                    "temperature": 0.1,
+                    "top_p": 0.9,
+                    "num_ctx": 16384,
+                },
+            },
+            timeout=240,
+        )
+        resp.raise_for_status()
+        raw = resp.json().get("message", {}).get("content", "").strip()
+        if not raw:
+            raise ValueError("Ollama schema repair returned empty response")
+        return _parse_json_loose(raw, profile)
+
+    repair_attempts.append(("ollama", _repair_with_ollama))
+
+    for provider_name, provider_fn in repair_attempts:
+        try:
+            logger.warning(f"Schema invalid ({error_message}); coba AI schema repair via {provider_name}...")
+            repaired = provider_fn()
+            if isinstance(repaired, dict):
+                logger.info(f"AI schema repair berhasil via {provider_name}")
+                return repaired
+        except Exception as exc:
+            logger.warning(f"AI schema repair via {provider_name} gagal: {exc}")
+
+    return None
+
+
 def _parse_json_response(raw: str, profile: str) -> dict:
     """
     Parse JSON response dari model dengan pengaman berlapis.
@@ -769,7 +934,13 @@ def _parse_json_response(raw: str, profile: str) -> dict:
             raise ValueError(f"Tidak bisa parse JSON setelah clean + repair: {e2}")
 
     # ── Layer 3: validasi struktur & panjang
-    return _validate_and_fix(data, profile)
+    try:
+        return _validate_and_fix(data, profile)
+    except ValueError as validation_error:
+        repaired = _repair_schema_with_ai(data, profile, str(validation_error))
+        if repaired is None:
+            raise
+        return _validate_and_fix(repaired, profile)
 
 
 def _validate_and_fix(data: dict, profile: str) -> dict:
@@ -911,6 +1082,8 @@ def _normalize_shorts_schema(data: dict) -> dict:
         if visual_cues:
             data["visual_cues"] = visual_cues
 
+    _normalize_visual_search_fields(data)
+
     data.setdefault("cta_plan", {
         "start": "none",
         "middle": "visual_only",
@@ -938,13 +1111,107 @@ def _normalize_shorts_schema(data: dict) -> dict:
     if not isinstance(data.get("music_arc"), list):
         data["music_arc"] = []
 
-    if not data.get("keywords"):
-        data["keywords"] = data.get("tags", [])[:5]
+    data["keywords"] = _build_keyword_fallbacks(data)
+
+    tags = _coerce_text_list(data.get("tags"))
+    if not tags:
+        data["tags"] = data["keywords"][:]
+    else:
+        data["tags"] = tags[:8]
 
     _normalize_creative_direction(data)
     _normalize_cta_language(data)
 
     return data
+
+
+def _coerce_text_list(value) -> list[str]:
+    if isinstance(value, str):
+        raw_items = re.split(r"[\n,|;]+", value)
+    elif isinstance(value, list):
+        raw_items = value
+    else:
+        return []
+
+    items: list[str] = []
+    seen: set[str] = set()
+    for raw in raw_items:
+        if not isinstance(raw, str):
+            continue
+        cleaned = " ".join(_clean_encoding(raw).strip().split())
+        if not cleaned:
+            continue
+        if len(cleaned) < 3:
+            continue
+        key = cleaned.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        items.append(cleaned)
+    return items
+
+
+def _build_keyword_fallbacks(data: dict) -> list[str]:
+    keywords = _coerce_text_list(data.get("keywords"))
+    tags = _coerce_text_list(data.get("tags"))
+    music_keywords = _coerce_text_list(data.get("music_keywords"))
+
+    collected: list[str] = []
+    seen: set[str] = set()
+
+    def add_many(values: list[str], limit: int | None = None):
+        for value in values:
+            normalized = " ".join(value.split())
+            if not normalized:
+                continue
+            key = normalized.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            collected.append(normalized)
+            if limit and len(collected) >= limit:
+                return
+
+    add_many(keywords, limit=5)
+    add_many(tags, limit=5)
+    add_many(music_keywords, limit=5)
+
+    creative_direction = data.get("creative_direction", {})
+    if isinstance(creative_direction, dict):
+        add_many(_coerce_text_list(creative_direction.get("packaging_angle")), limit=5)
+        add_many(_coerce_text_list(creative_direction.get("thumbnail_text")), limit=5)
+
+    visual_keywords = data.get("visual_keywords", {})
+    if isinstance(visual_keywords, dict):
+        add_many(_coerce_text_list(list(visual_keywords.values())), limit=5)
+
+    hook_type = str(data.get("hook_type", "")).replace("_", " ").strip()
+    if hook_type:
+        add_many([hook_type], limit=5)
+
+    combined_text = " ".join(
+        str(data.get(field, ""))
+        for field in ("title", "topic", "script", "hook_line", "final_reveal")
+    ).lower()
+
+    if any(token in combined_text for token in ("mandela", "memory", "memori", "psych", "psik", "otak", "mind")):
+        add_many(
+            ["psychology facts", "false memory", "mandela effect", "mind control", "viral shorts"],
+            limit=5,
+        )
+    elif any(token in combined_text for token in ("horror", "horor", "ghost", "pintu", "door", "paranormal", "misteri", "dark")):
+        add_many(
+            ["horror story", "dark mystery", "creepy facts", "paranormal case", "viral shorts"],
+            limit=5,
+        )
+
+    if not collected:
+        add_many(
+            ["storytelling", "youtube shorts", "viral facts", "mystery story", "dark facts"],
+            limit=5,
+        )
+
+    return collected[:5]
 
 
 def _compose_shorts_script(data: dict) -> str:
@@ -1093,6 +1360,92 @@ def _normalize_creative_direction(data: dict) -> None:
         creative["packaging_angle"] = _build_packaging_angle(data)
 
     data["creative_direction"] = creative
+
+
+def _normalize_visual_search_fields(data: dict) -> None:
+    visual_cues = data.get("visual_cues", [])
+    if isinstance(visual_cues, list):
+        cleaned_cues: list[str] = []
+        for cue in visual_cues:
+            if not isinstance(cue, str):
+                continue
+            normalized = _englishize_visual_phrase(cue)
+            if normalized:
+                cleaned_cues.append(normalized)
+        if cleaned_cues:
+            data["visual_cues"] = cleaned_cues
+
+    visual_beats = data.get("visual_beats")
+    if isinstance(visual_beats, dict):
+        for section in ("opening", "middle", "ending"):
+            beats = visual_beats.get(section, [])
+            if isinstance(beats, str):
+                beats = [beats]
+            if not isinstance(beats, list):
+                continue
+            normalized_beats: list[str] = []
+            for beat in beats:
+                if isinstance(beat, dict):
+                    beat_copy = dict(beat)
+                    for key in ("cue", "text", "visual"):
+                        if isinstance(beat_copy.get(key), str):
+                            beat_copy[key] = _englishize_visual_phrase(beat_copy[key])
+                    normalized_beats.append(beat_copy)
+                elif isinstance(beat, str):
+                    normalized = _englishize_visual_phrase(beat)
+                    if normalized:
+                        normalized_beats.append(normalized)
+            if normalized_beats:
+                visual_beats[section] = normalized_beats
+
+    creative = data.get("creative_direction")
+    if isinstance(creative, dict):
+        for key in ("thumbnail_style", "opening_visual_priority", "packaging_angle"):
+            if isinstance(creative.get(key), str):
+                creative[key] = _englishize_visual_phrase(creative[key])
+
+
+def _englishize_visual_phrase(text: str) -> str:
+    cleaned = " ".join(_clean_encoding(text).strip().split())
+    if not cleaned:
+        return ""
+
+    replacements = {
+        " dengan ": " with ",
+        " dan ": " and ",
+        " wajah ": " face ",
+        " grafik ": " graph ",
+        " otak ": " brain ",
+        " layar ": " screen ",
+        " teks ": " text ",
+        " putih ": " white ",
+        " kecil ": " small ",
+        " gelap ": " dark ",
+        " ruang ": " room ",
+        " bercahaya ": " glowing ",
+        " suara ": " sound ",
+        " jam ": " clock ",
+        " efek ": " effect ",
+        " animasi ": " animation ",
+        " close-up ": " close-up ",
+        " close up ": " close-up ",
+        " visual ": " split visual ",
+        " dopamin ": " dopamine ",
+    }
+
+    padded = f" {cleaned} "
+    for src, dst in replacements.items():
+        padded = re.sub(re.escape(src), dst, padded, flags=re.IGNORECASE)
+
+    padded = re.sub(r"\bsaat\b", "at", padded, flags=re.IGNORECASE)
+    padded = re.sub(r"\bwajah real user\b", "real user face", padded, flags=re.IGNORECASE)
+    padded = re.sub(r"\bavatar digital\b", "digital avatar", padded, flags=re.IGNORECASE)
+    padded = re.sub(r"\bgrafik dopamin activity\b", "dopamine activity graph", padded, flags=re.IGNORECASE)
+    padded = re.sub(r"\bwarna desaturated biru\b", "desaturated blue tones", padded, flags=re.IGNORECASE)
+    padded = re.sub(r"\bfootage\b", "", padded, flags=re.IGNORECASE)
+
+    normalized = " ".join(padded.replace(" :", ":").replace(" ,", ",").split())
+    return normalized.strip(" ,")
 
 
 def _build_thumbnail_text(data: dict) -> str:
@@ -1470,6 +1823,7 @@ Editorial stance:
 - Make thumbnail_text sharp, short, and dark. Avoid lazy generic words if a more specific hook-word exists.
 - Pattern interrupt must actually bend the story away from the viewer's expected direction, not just add another shocking fact.
 - hook_score and hook_reason should match the real strength of the opening.
+- CRITICAL: visual_cues, visual_beats, keywords, music_keywords, thumbnail_style, opening_visual_priority, and packaging_angle must stay in English even if the narration language is Indonesian.
 
 Language: {language}
 Niche: {niche}

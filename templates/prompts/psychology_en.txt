@@ -12,6 +12,20 @@ The "script" field MUST contain 80–120 words. Count carefully before outputtin
 Target reading pace: 2.8–3.2 words/second (total ≈ 30–40 seconds of narration).
 Script under 80 words = COMPLETELY WRONG. Rewrite it longer.
 
+QUALITY PRIORITY
+- Priority #1 = hook, escalation, and psychological threat strong enough to stop the swipe.
+- Priority #2 = a specific angle and language that does not feel interchangeable.
+- Priority #3 = metadata such as visuals, keywords, and description.
+- If there is a trade-off, sacrifice metadata neatness before sacrificing narrative sharpness.
+
+QUALITY-GATE TARGETS
+- The first sentence must contain a concrete fact, number, experiment, or implication with memorable specificity.
+- The second sentence must turn that fact into a personal threat, not just re-explain it.
+- The middle must escalate instead of circling. It needs one real pattern interrupt that bends the viewer's assumption.
+- The ending must leave psychological residue, not feel like a generic promo line.
+- Avoid the generic pattern: shocking claim → straight explanation → "follow/subscribe".
+- Use at least one line or angle that feels native to this exact topic rather than generic dark-psychology copy.
+
 ════════════════════════════════
 HOOK FORMULA (FIRST 2 SENTENCES — MOST CRITICAL)
 ════════════════════════════════
@@ -60,17 +74,9 @@ NARRATION STRUCTURE (MUST FOLLOW)
 
 [CLOSE & CTA — words 91-120]:
   • Build extreme tension. End with an unresolved feeling — leave an emotional hook about their own mind.
-  • Pick ONE CTA from the list below (rotate, never repeat the same one):
-    - "Follow before they delete this account."
-    - "Subscribe to protect your mind from this manipulation."
-    - "Save this video. You'll need it someday."
-    - "Subscribe — because this will never be taught in any school."
-    - "Comment [AWARE] if you already knew this truth."
-    - "Share this with one person whose mind is being manipulated right now."
-    - "Follow for dark truths that this industry doesn't want you to know."
-    - "Check the link in bio for crazier facts."
-    - "Did you realize this? Comment below."
-    - "Tag a friend who needs to know this before it's too late." 
+  • The CTA must feel like a natural consequence of the reveal: warning, dare, disturbing question, save/share cue, or comment prompt tied directly to the psychological threat.
+  • It MAY mention follow/subscribe, but only when it feels earned and not like a template promo.
+  • FORBIDDEN: ending with a plain "follow/subscribe for part 2" that has no emotional or thematic connection to the script.
 
 ════════════════════════════════
 VISUAL INSTRUCTIONS (visual_cues field)

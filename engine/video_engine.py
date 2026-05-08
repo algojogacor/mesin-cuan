@@ -1355,27 +1355,32 @@ def _add_finishing_effects(input_path: str, out_path: str, title: str,
                     curr_line += w + " "
             if curr_line:
                 lines.append(curr_line.strip())
+
+            lines = [line for line in lines[:3] if line]
             
             bait_start = max(duration - 6.0, 10.0)
             bait_end = duration - 0.5
             base_y = int(height * 0.65)
             
-           # Ganti label [outv] terakhir dengan [bait_in]
-            logger.debug(f"[finishing_effects] filter_chain tail: {filter_chain[-100:]}")
-            if "[outv]" in filter_chain:
-                last_idx = filter_chain.rfind("[outv]")
-                filter_chain = (filter_chain[:last_idx]
-                                + "[bait_in]"
-                                + filter_chain[last_idx + 6:])
-            else:
-                logger.warning("Comment bait skip: label [outv] tidak ditemukan di filter_chain")
-                lines = []
-            
+            if lines:
+                # Ganti label [outv] terakhir dengan [bait_in] agar bait overlay
+                # menjadi kelanjutan filter yang sudah ada, bukan cabang terpisah.
+                logger.debug(f"[finishing_effects] filter_chain tail: {filter_chain[-100:]}")
+                if "[outv]" in filter_chain:
+                    last_idx = filter_chain.rfind("[outv]")
+                    filter_chain = (
+                        filter_chain[:last_idx]
+                        + "[bait_in]"
+                        + filter_chain[last_idx + 6:]
+                    )
+                else:
+                    logger.warning("Comment bait skip: label [outv] tidak ditemukan di filter_chain")
+                    lines = []
+
             prev_label = "bait_in"
-            lines = lines[:3]
             for i, line in enumerate(lines):
                 y_offset = base_y + (i * 55)
-                next_label = f"bait{i}" if i < len(lines)-1 else "outv"
+                next_label = f"bait{i}" if i < len(lines) - 1 else "outv"
                 filter_chain += (
                     f"; [{prev_label}]drawtext"
                     f"=fontfile='{fp_escaped}'"
@@ -1388,6 +1393,7 @@ def _add_finishing_effects(input_path: str, out_path: str, title: str,
                     f":enable='between(t,{bait_start:.2f},{bait_end:.2f})'"
                     f" [{next_label}]"
                 )
+                prev_label = next_label
     else:
         filter_chain += "; [titlev]null [outv]"
 

@@ -20,6 +20,20 @@ TARGET DURASI
 - Pace pembacaan harus cocok untuk Shorts 30-45 detik.
 - Narasi harus padat, tidak berputar-putar.
 
+PRIORITAS KUALITAS
+- Prioritas #1 = hook, eskalasi, dan reveal yang bikin retensi tinggi.
+- Prioritas #2 = bahasa yang terasa khas, spesifik, dan tidak bisa dipakai ke topik lain.
+- Prioritas #3 = metadata pendukung seperti visual, keyword, dan music.
+- Jika ada trade-off, korbankan kerapian metadata dulu, JANGAN korbankan ketajaman narasi.
+
+TARGET AGAR LOLOS QUALITY GATE
+- Kalimat pertama harus memuat detail konkret yang tidak terasa generik: objek, angka, gejala tubuh, artefak, lokasi, atau anomali spesifik.
+- anchor_line harus memperkecil jarak ancaman ke penonton, bukan sekadar menjelaskan topik.
+- Pattern interrupt wajib membelokkan asumsi penonton, bukan hanya menambah fakta seram lain.
+- final_reveal harus me-reframe cerita, bukan merangkum.
+- Hindari pola generik: klaim mengejutkan → penjelasan lurus → suruh subscribe.
+- Sisipkan minimal satu image/angle yang terasa mustahil dipakai untuk topik lain.
+
 STRUKTUR BEAT WAJIB
 1. hook_line
    Kalimat pembuka paling keras dan paling bikin penonton berhenti scroll.
@@ -51,6 +65,8 @@ ATURAN CTA
 - cta_visual_text HARUS dinamis sesuai kasus dan vibes topik.
 - Hindari default generik kalau ada opsi yang lebih tajam.
 - Contoh rasa: "KALAU BERANI LANJUT", "SIMPAN SEBELUM DIHAPUS", "BAGIAN GELAPNYA BESOK".
+- cta_line tidak harus berbunyi seperti promosi. Boleh berupa peringatan, ancaman, tantangan, pertanyaan gelap, atau undangan ke Part 2 selama tetap mendorong aksi.
+- DILARANG menutup hanya dengan "subscribe/follow untuk part 2" tanpa kaitan organik ke reveal terakhir.
 
 MUSIC
 - music_mood harus salah satu dari:

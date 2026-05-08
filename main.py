@@ -25,7 +25,16 @@ import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
-from engine.utils import get_logger, load_settings, channel_data_path, load_json, save_json, timestamp
+from engine.utils import (
+    get_logger,
+    load_settings,
+    channel_data_path,
+    load_json,
+    save_json,
+    timestamp,
+    log_box,
+    log_step_box,
+)
 from engine import (
     topic_engine, script_engine, qc_engine,
     tts_engine, footage_engine, video_engine,
@@ -50,6 +59,13 @@ PIPELINE_STAGE_WORKERS = {
     "prep": 1,
     "render": 1,
     "post": 1,
+}
+
+PIPELINE_STAGE_META = {
+    "script": (1, "Topic + Script", "Cari topik, generate script, lalu QC script"),
+    "prep": (2, "Prep", "TTS + footage fetch + Whisper prep"),
+    "render": (3, "Render", "Final video render"),
+    "post": (4, "Post", "Thumbnail + metadata + QC + upload queue"),
 }
 
 
@@ -135,6 +151,18 @@ def _job_label(job: dict) -> str:
     return f"[{job['batch_index']}/{job['batch_total']}] [{ch_id}] [{profile}]"
 
 
+def _log_pipeline_step_banner(job: dict, stage: str) -> None:
+    step_index, title, subtitle = PIPELINE_STAGE_META.get(stage, (0, stage.upper(), None))
+    log_step_box(
+        logger,
+        _job_label(job),
+        step_index,
+        len(PIPELINE_STAGES),
+        title,
+        subtitle=subtitle,
+    )
+
+
 def _next_stage(job: dict) -> str | None:
     if job.get("current_stage"):
         return job["current_stage"]
@@ -199,7 +227,7 @@ def _mark_stage_started(job: dict, stage: str) -> None:
     job["status"] = "running"
     job["current_stage"] = stage
     job["stage_started_at"] = time.time()
-    logger.info(f"{_job_label(job)} ▶ {stage.upper()} mulai")
+    _log_pipeline_step_banner(job, stage)
 
 
 def _mark_stage_finished(job: dict, stage: str, estimator: SmartETAEstimator | None,
@@ -250,7 +278,6 @@ def _run_stage_script(job: dict) -> dict:
     ch_id = channel["id"]
     topic_override = job.get("topic_override")
 
-    logger.info(f"{_job_label(job)} STEP 1/4 — Topic + Script")
     if topic_override:
         logger.info(f"[{ch_id}] 🎯 TOPIC OVERRIDE: {topic_override}")
         topic_data = {
@@ -284,7 +311,6 @@ def _run_stage_prep(job: dict) -> dict:
     ch_id = channel["id"]
     script_data = job["script_data"]
 
-    logger.info(f"{_job_label(job)} STEP 2/4 — Prep (TTS + Footage + Whisper)")
     audio_path = tts_engine.generate(script_data, channel)
 
     def _fetch_footage():
@@ -318,7 +344,6 @@ def _run_stage_prep(job: dict) -> dict:
 
 
 def _run_stage_render(job: dict) -> dict:
-    logger.info(f"{_job_label(job)} STEP 3/4 — Render")
     video_path = video_engine.render(
         job["script_data"],
         job["audio_path"],
@@ -344,8 +369,6 @@ def _run_stage_post(job: dict, dry_run: bool = False, skip_qc: bool = False) -> 
     script_data = job["script_data"]
     video_path = job["video_path"]
     channel = job["channel"]
-
-    logger.info(f"{_job_label(job)} STEP 4/4 — Post (Thumbnail + Metadata + QC + Upload)")
 
     def _run_thumbnail():
         try:
@@ -458,8 +481,7 @@ def run_once(channel: dict, profile: str = "shorts",
     run_id = None
 
     try:
-        logger.info(f"\n{'='*50}")
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 1/8 — Topic")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 1, 8, "Topic")
         if topic_override:
             logger.info(f"[{ch_id}] 🎯 TOPIC OVERRIDE: {topic_override}")
             topic_data = {
@@ -473,19 +495,19 @@ def run_once(channel: dict, profile: str = "shorts",
 
         run_id = state_manager.create_run(ch_id, topic_data["topic"], profile=profile)
 
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 2/8 — Script")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 2, 8, "Script")
         script_data = script_engine.generate(topic_data, channel, profile=profile)
 
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 3/8 — QC Script")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 3, 8, "QC Script")
         qc_engine.check(script_data, channel, profile=profile)
 
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 4/8 — TTS")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 4, 8, "TTS")
         audio_path = tts_engine.generate(script_data, channel)
 
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 5/8 — Footage")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 5, 8, "Footage")
         footage_paths = footage_engine.fetch(script_data, channel, profile=profile)
 
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 6/8 — Render")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 6, 8, "Render")
         video_path = video_engine.render(script_data, audio_path, footage_paths, channel, profile=profile)
 
         # ══ OPTIMASI 3: Thumbnail generation paralel dengan Metadata generation ══
@@ -494,7 +516,7 @@ def run_once(channel: dict, profile: str = "shorts",
         # Thumbnail: CPU-only (PIL + FFmpeg frame extract) — tidak pakai GPU render.
         # Metadata: pure I/O / string processing — sangat ringan.
         # Jalankan paralel untuk mempersingkat step 7 sebelum QC dan upload.
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 7/8 — Thumbnail & Metadata [PARALEL-3]")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 7, 8, "Thumbnail + Metadata", "[PARALEL-3]")
 
         def _run_thumbnail():
             try:
@@ -527,7 +549,7 @@ def run_once(channel: dict, profile: str = "shorts",
 
         # ── QC Vision (Gemini) ───────────────────────────────────────────────
         if not skip_qc:
-            logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 7.5/8 — QC Vision")
+            log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 8, 8, "QC Vision")
             video_path, thumbnail_path = _run_qc_vision(
                 video_path, thumbnail_path, script_data, channel, profile
             )
@@ -535,7 +557,7 @@ def run_once(channel: dict, profile: str = "shorts",
             logger.info(f"[{ch_id}] QC Vision di-skip (--skip-qc)")
 
         # ── Upload ke GDrive ─────────────────────────────────────────────────
-        logger.info(f"[{ch_id}] [{profile.upper()}] ▶ STEP 8/8 — Upload ke GDrive")
+        log_step_box(logger, f"[{ch_id}] [{profile.upper()}]", 8, 8, "Upload ke GDrive")
         if dry_run:
             logger.info(f"[{ch_id}] DRY RUN — skip upload GDrive")
             state_manager.update_run(run_id, status="dry_run")
@@ -912,12 +934,10 @@ def run_campaign(target_channel_id=None, dry_run=False, skip_qc=False):
         logger.info("✅ Tidak ada job valid yang bisa dijalankan.")
         return
 
-    logger.info(f"\n{'#'*60}")
-    logger.info(f"# Smart pipeline batch: {len(jobs)} video")
-    logger.info("# Lane: script=1 | prep=1 | render=1 | post=1")
+    summary = "Lane: script=1 | prep=1 | render=1 | post=1"
     if skip_qc:
-        logger.info("# QC Vision: DINONAKTIFKAN (--skip-qc)")
-    logger.info(f"{'#'*60}")
+        summary += " | QC Vision: OFF"
+    log_box(logger, f"SMART PIPELINE BATCH  {len(jobs)} video", summary)
 
     estimator = SmartETAEstimator()
     executors = {
@@ -993,11 +1013,9 @@ def run_campaign(target_channel_id=None, dry_run=False, skip_qc=False):
     ok_count = len([job for job in jobs if job.get("status") == "completed"])
     fail_count = len([job for job in jobs if job.get("status") == "failed"])
 
-    logger.info(f"\n{'='*50}")
-    logger.info(f"Batch selesai: {ok_count} ✅ berhasil | {fail_count} ❌ gagal")
+    log_box(logger, f"BATCH SELESAI  berhasil={ok_count}  gagal={fail_count}")
     if ok_count > 0:
         logger.info("Video sudah masuk GDrive queue -> Koyeb akan upload sesuai jadwal")
-    logger.info(f"{'='*50}\n")
 
     logger.info("🧹 Menjalankan cleanup file lama...")
     cleanup_engine.run(dry_run=dry_run)
@@ -1011,10 +1029,11 @@ def run_channel(channel: dict, dry_run: bool = False, skip_qc: bool = False):
     n_shorts    = plan.get("shorts", 1)
     n_long_form = plan.get("long_form", 0)
 
-    logger.info(f"\n{'#'*60}")
-    logger.info(f"# Channel: {channel['name']} ({ch_id})")
-    logger.info(f"# Plan: {n_shorts} shorts + {n_long_form} long-form")
-    logger.info(f"{'#'*60}")
+    log_box(
+        logger,
+        f"CHANNEL  {channel['name']} ({ch_id})",
+        f"Plan: {n_shorts} shorts + {n_long_form} long-form",
+    )
 
     shorts_ok   = 0
     shorts_fail = 0

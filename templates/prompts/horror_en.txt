@@ -20,6 +20,20 @@ DURATION TARGET
 - Reading pace must fit a 30-45 second Short.
 - Keep the narration dense and fast-moving.
 
+QUALITY PRIORITY
+- Priority #1 = hook, escalation, and reveal strong enough to drive retention.
+- Priority #2 = language that feels specific, case-owned, and impossible to recycle across random topics.
+- Priority #3 = support metadata such as visuals, keywords, and music.
+- If there is a trade-off, sacrifice metadata neatness before sacrificing narrative sharpness.
+
+QUALITY-GATE TARGETS
+- The first line must contain a concrete memorable detail: an object, symptom, body anomaly, location, recording artifact, number, or impossible image.
+- anchor_line must bring the threat closer to the viewer, not just explain the topic.
+- The pattern interrupt must bend the viewer's assumption, not simply add another creepy fact.
+- final_reveal must reframe the story, not just summarize it.
+- Avoid the generic pattern: shocking claim → straight explanation → subscribe.
+- Include at least one image or angle that feels unique to this exact case.
+
 REQUIRED STORY BEATS
 1. hook_line
    The hardest opening line that forces the viewer to stop scrolling.
@@ -51,6 +65,8 @@ CTA RULES
 - cta_visual_text must be dynamic and case-specific.
 - Avoid lazy generic defaults if a darker, sharper phrase fits the case better.
 - Desired vibe examples: "IF YOU DARE CONTINUE", "SAVE BEFORE IT VANISHES", "THE DARK PART TOMORROW".
+- cta_line does NOT have to sound promotional. It may be a warning, dare, dark question, threat residue, or a natural pull into Part 2 as long as it still drives action.
+- FORBIDDEN: ending with a plain "follow/subscribe for part 2" that is disconnected from the final reveal.
 
 MUSIC
 - music_mood must be one of:
