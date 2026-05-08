@@ -71,9 +71,11 @@ Rahasia utamanya: **Qwen + Ollama generate naskah secara paralel**, lalu **salin
     │    (hook · pacing · curiosity · retention)                       │
     └──────────────────────┬──────────────────────────────────────────┘
                            ↓
-    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → Upload
-    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue
+    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → GDrive → ☁️ Uploader
+    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue      (Koyeb)
 ```
+
+> **Alur auto-upload:** Mesin Cuan render video di lokal → push ke antrian Google Drive → [`mesin-cuan-uploader`](https://github.com/algojogacor/mesin-cuan-uploader) (di-host di Koyeb/Railway) ambil dari GDrive dan upload ke YouTube dengan jadwal terjeda. Arsitektur dua-langkah ini mencegah YouTube mendeteksi upload massal dari satu IP.
 
 ---
 

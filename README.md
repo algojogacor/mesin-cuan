@@ -71,9 +71,11 @@ The secret sauce: **Qwen + Ollama generate scripts in parallel**, then **cross-s
     │    (hook · pacing · curiosity · retention)                       │
     └──────────────────────┬──────────────────────────────────────────┘
                            ↓
-    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → Upload
-    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue
+    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → GDrive → ☁️ Uploader
+    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue      (Koyeb)
 ```
+
+> **Auto-upload flow:** Mesin Cuan renders videos locally → pushes to Google Drive queue → [`mesin-cuan-uploader`](https://github.com/algojogacor/mesin-cuan-uploader) (deployed on Koyeb/Railway) pulls from GDrive and uploads to YouTube with paced scheduling. This two-step architecture prevents YouTube from flagging bulk uploads from a single IP.
 
 ---
 
