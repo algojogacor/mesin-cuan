@@ -33,7 +33,7 @@
 
 > *"Ini bukan bot. Ini arsitek konten berbasis AI yang bekerja tanpa henti — menemukan tren, menulis naskah, merender video sinematik, dan mengupload ke YouTube, semuanya otomatis."*
 
-**Mesin Cuan Viral Architect v5** adalah sistem produksi konten YouTube bertenaga AI yang beroperasi penuh 24/7. Ia bukan sekadar script; ia adalah **pabrik video otonom** yang memahami algoritma, mendeteksi tren sebelum viral, dan mengeksekusi setiap frame dengan presisi sinematik.
+**Mesin Cuan Viral Architect** adalah sistem produksi konten YouTube bertenaga AI yang beroperasi penuh 24/7. Ia bukan sekadar script; ia adalah **pabrik video otonom** yang memahami algoritma, mendeteksi tren sebelum viral, dan mengeksekusi setiap frame dengan presisi sinematik.
 
 Bayangkan memiliki tim produksi lengkap — riset tren, penulis naskah, voice-over artist, video editor, dan manajer upload — yang bekerja tanpa istirahat, tanpa gaji, tanpa keluhan. Itulah Mesin Cuan.
 
@@ -100,7 +100,7 @@ Web research otomatis sebelum penulisan naskah — memastikan fakta akurat dan k
 ### 📺 Series Engine
 Auto-generate konten berseri (Part 1, 2, 3...) dengan cliffhanger logic dan call-back ke episode sebelumnya.
 
-### 🌟 Neon Visuals v5
+### 🌟 Neon Visuals
 Renderer video sinematik FFmpeg: **teks glowing neon**, **glassmorphism panels**, **cinematic letterbox** + vignette + color grading.
 
 ### 🔊 Smart SFX Mixer

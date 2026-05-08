@@ -33,7 +33,7 @@
 
 > *"This isn't a bot. It's an AI Video Architect that works around the clock — discovering trends, writing scripts, rendering cinematic footage, and uploading to YouTube, fully automated."*
 
-**Mesin Cuan Viral Architect v5** is a 24/7 AI-powered YouTube content production system. It's not merely a script; it's an **autonomous video factory** that understands the algorithm, detects trends before they peak, and executes every frame with cinematic precision.
+**Mesin Cuan Viral Architect** is a 24/7 AI-powered YouTube content production system. It's not merely a script; it's an **autonomous video factory** that understands the algorithm, detects trends before they peak, and executes every frame with cinematic precision.
 
 Imagine having a complete production team — trend researcher, scriptwriter, voice actor, video editor, and upload manager — working without rest, without salary, without complaints. That's Mesin Cuan.
 
@@ -100,7 +100,7 @@ Automated web research before script generation — ensures factual accuracy and
 ### 📺 Series Engine
 Auto-generates multi-part content (Part 1, 2, 3...) with cliffhanger logic and cross-episode callbacks.
 
-### 🌟 Neon Visuals v5
+### 🌟 Neon Visuals
 Cinematic FFmpeg renderer: **glowing neon text**, **glassmorphism panels**, **cinematic letterbox** + vignette + color grading.
 
 ### 🔊 Smart SFX Mixer
