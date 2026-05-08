@@ -25,181 +25,9 @@
 
 </div>
 
----
-
-## 🌐 Language / Bahasa
-
-> **[🇮🇩 Bahasa Indonesia](#-bahasa-indonesia)** &nbsp;|&nbsp; **[🇬🇧 English](#-english)**
+> 📖 [🇮🇩 Baca dalam Bahasa Indonesia](README_ID.md)
 
 ---
-
-<br/>
-
-# 🇮🇩 Bahasa Indonesia
-
-## Visi & Misi
-
-> *"Ini bukan bot. Ini arsitek konten berbasis AI yang bekerja tanpa henti — menemukan tren, menulis naskah, merender video sinematik, dan mengupload ke YouTube, semuanya otomatis."*
-
-**Mesin Cuan Viral Architect v5** adalah sistem produksi konten YouTube bertenaga AI yang beroperasi penuh 24/7. Ia bukan sekadar script; ia adalah **pabrik video otonom** yang memahami algoritma, mendeteksi tren sebelum viral, dan mengeksekusi setiap frame dengan presisi sinematik.
-
-Bayangkan memiliki tim produksi lengkap — riset tren, penulis naskah, voice-over artist, video editor, dan manajer upload — yang bekerja tanpa istirahat, tanpa gaji, tanpa keluhan. Itulah Mesin Cuan.
-
----
-
-## ⚙️ Arsitektur 12 Engine
-
-### 📡 Viral Loop Engine
-Riset tren real-time menggabungkan **YouTube Data API v3**, **Google Trends**, dan **YouTube Search Suggestions** — diperbarui setiap 6 jam.
-
-### 🧠 Dual Parallel AI Scripting
-**Qwen + Ollama generate naskah secara paralel**, lalu saling menilai dengan cross-provider scoring (anti-sycophancy). Skor tertinggi yang lanjut ke produksi. Fallback chain: Ollama → Qwen → Groq.
-
-### 🎯 Script Quality Scorer
-Multi-dimensional scoring: **hook strength**, **curiosity gap**, **pacing**, **emotional impact**, **retention prediction** — naskah di bawah threshold otomatis ditulis ulang.
-
-### 🔗 Hook Engine
-Auto-inject hook pembuka yang mempertahankan retensi penonton di 3 detik pertama — berbasis data retention analytics per channel.
-
-### 📚 Memory Engine
-Melacak topik yang sudah diproduksi — mencegah pengulangan konten dan memastikan variasi antar video.
-
-### 🔍 Research Engine
-Web research otomatis sebelum penulisan naskah — memastikan fakta akurat dan konteks terkini.
-
-### 📺 Series Engine
-Auto-generate konten berseri (Part 1, 2, 3...) dengan cliffhanger logic dan call-back ke episode sebelumnya.
-
-### 🌟 Neon Visuals v5
-Renderer video sinematik FFmpeg: **teks glowing neon**, **glassmorphism panels**, **cinematic letterbox** + vignette + color grading.
-
-### 🔊 Smart SFX Mixer
-Sound effect otomatis berdasarkan niche: Horror → heartbeat/thunder, Psychology → mind-tone/focus hum, Motivation → crowd cheer/stadium echo.
-
-### 🖼️ Thumbnail Intelligence
-AI-driven thumbnail text & style selection berdasarkan niche dan topik — optimasi CTR.
-
-### 📊 OAuth2 Analytics
-Integrasi **YouTube Analytics API v2** — dashboard retensi per channel, analisis drop-off, optimasi konten.
-
-### ⚡ Pipeline Estimator
-Prediksi ETA untuk batch render multi-channel — estimasi akurat sebelum eksekusi.
-
----
-
-## 🛠️ Tech Stack
-
-| Komponen | Teknologi | Fungsi |
-|---|---|---|
-| **Bahasa** | Python 3.11+ | Orkestrasi pipeline |
-| **AI Primary** | Qwen self-hosted + Ollama | Dual parallel script generation + cross-scoring |
-| **AI Quality** | Script Quality Scorer | Multi-dimensional validation |
-| **AI Vision QC** | NVIDIA API / Ollama Vision | Quality control video |
-| **AI Fallback** | Groq | Last-resort script generation |
-| **Text-to-Speech** | F5-TTS · Edge TTS · Coqui | 50+ suara multilingual |
-| **Rendering** | FFmpeg 7.x | Render video & audio |
-| **Footage** | Pexels API · Pixabay API | B-roll footage + clip cache |
-| **SFX** | Freesound API | Sound effect otomatis |
-| **Upload** | YouTube Data API v3 (OAuth2) | Upload & scheduling |
-| **Analytics** | YouTube Analytics API v2 | Retensi & insight |
-| **Trending** | YouTube API · Google Trends | Deteksi tren real-time |
-| **Research** | Web scraping + NLP | Konteks akurat sebelum naskah |
-| **Storage** | Google Drive API v3 | Antrian upload |
-| **Notifikasi** | Telegram Bot API | Alert real-time |
-| **Scheduler** | APScheduler | Campaign automation |
-
----
-
-## 🚀 Instalasi & Setup
-
-### Langkah 1 — Clone & Environment
-
-```bash
-git clone https://github.com/algojogacor/mesin-cuan.git
-cd mesin-cuan
-
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # Linux / Mac
-
-pip install -r requirements.txt
-```
-
-### Langkah 2 — Konfigurasi `.env`
-
-Buat file `.env` di root folder:
-
-```env
-# ── AI ───────────────────────────────────────────
-GEMINI_API_KEY=your_key
-GROQ_API_KEY=your_key
-ANTHROPIC_API_KEY=your_key
-
-# ── Footage ───────────────────────────────────────
-PEXELS_API_KEY=your_key
-PIXABAY_API_KEY=your_key
-FREESOUND_API_KEY=your_key          # Opsional
-
-# ── YouTube & Google ──────────────────────────────
-YT_API_KEY=your_key
-GOOGLE_CLIENT_ID=your_id
-GOOGLE_CLIENT_SECRET=your_secret
-GOOGLE_DRIVE_FOLDER_ID=your_folder
-
-# ── Notifikasi ────────────────────────────────────
-TELEGRAM_BOT_TOKEN=your_token
-TELEGRAM_CHAT_ID=your_chat_id
-
-# ── Cloudflare Trends ─────────────────────────────
-CF_ACCOUNT_ID=your_id
-CF_API_TOKEN=your_token
-```
-
-### Langkah 3 — Setup Assets & Auth
-
-```bash
-# Download SFX pack + buat folder assets
-python tools/setup_assets.py
-
-# OAuth2 YouTube (buka browser, login sekali)
-python setup_auth.py
-
-# Verifikasi semua koneksi
-python check_requirements.py
-```
-
----
-
-## 💻 Cara Penggunaan
-
-```bash
-# Jalankan semua channel sesuai campaign
-python main.py
-
-# Jalankan channel tertentu saja
-python main.py --channel ch_id_horror
-
-# Jalankan semua channel sekaligus
-python main.py --all
-
-# Preview jadwal tanpa render
-python main.py --preview
-
-# Test pipeline tanpa upload ke GDrive
-python main.py --dry-run
-
-# Skip QC Vision (lebih cepat, untuk testing)
-python main.py --skip-qc
-
-# Update dashboard analytics retensi
-python main.py --analytics
-```
-
----
-
-<br/>
-
-# 🇬🇧 English
 
 ## The Vision
 
@@ -291,32 +119,10 @@ pip install -r requirements.txt
 
 ### Step 2 — Configure `.env`
 
-Create a `.env` file in the root directory:
+Copy `.env.example` to `.env` and fill in your API keys:
 
-```env
-# ── AI ───────────────────────────────────────────
-GEMINI_API_KEY=your_key
-GROQ_API_KEY=your_key
-ANTHROPIC_API_KEY=your_key
-
-# ── Footage ───────────────────────────────────────
-PEXELS_API_KEY=your_key
-PIXABAY_API_KEY=your_key
-FREESOUND_API_KEY=your_key          # Optional
-
-# ── YouTube & Google ──────────────────────────────
-YT_API_KEY=your_key
-GOOGLE_CLIENT_ID=your_id
-GOOGLE_CLIENT_SECRET=your_secret
-GOOGLE_DRIVE_FOLDER_ID=your_folder
-
-# ── Notifications ─────────────────────────────────
-TELEGRAM_BOT_TOKEN=your_token
-TELEGRAM_CHAT_ID=your_chat_id
-
-# ── Cloudflare Trends ─────────────────────────────
-CF_ACCOUNT_ID=your_id
-CF_API_TOKEN=your_token
+```bash
+cp .env.example .env
 ```
 
 ### Step 3 — Asset Bootstrap & Auth
@@ -361,15 +167,37 @@ python main.py --analytics
 
 ---
 
+## ⚡ Quick Start (Minimal Mode)
+
+Only need **Ollama + FFmpeg** — no API keys required:
+
+```bash
+# 1. Install Ollama and pull a model
+ollama pull llama3.3:latest
+
+# 2. Install FFmpeg
+# Ubuntu: sudo apt install ffmpeg
+# macOS: brew install ffmpeg
+# Windows: https://ffmpeg.org/download.html
+
+# 3. Run with Ollama only (skip footage, upload, analytics)
+python main.py --channel ch_id_horror --skip-qc
+```
+
+Features that work without API keys: AI scripting (Ollama), TTS (Edge TTS free), SFX, render.
+Features needing keys: B-roll footage (Pexels/Pixabay), YouTube upload, Google Drive storage.
+
+---
+
 <div align="center">
 
 ---
 
 ## 📜 License
 
-**MIT License** — bebas pakai, modifikasi, dan distribusi untuk keperluan apapun, termasuk komersial.
+**MIT License** — free to use, modify, and distribute for any purpose, including commercial.
 
-Lihat [LICENSE](LICENSE) untuk teks lengkap.
+See [LICENSE](LICENSE) for full text.
 
 ---
 
