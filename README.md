@@ -39,6 +39,44 @@ Imagine having a complete production team — trend researcher, scriptwriter, vo
 
 ---
 
+## 🤔 Why Mesin Cuan?
+
+| | Manual Editing | Hiring Editors | Other AI Tools | **Mesin Cuan** |
+|---|---|---|---|---|
+| **Cost** | Your time (8h/video) | $500-2000/month | $20-100/month | **Free (self-hosted)** |
+| **Speed** | 1 video/day | 2-3 videos/week | 1-2 videos/day | **12+ videos/day** |
+| **Quality** | Skill-dependent | Variable | Generic AI feel | **Dual AI cross-scored** |
+| **Data Privacy** | ✅ | ❌ Shared with editor | ❌ Uploaded to cloud | **✅ 100% local** |
+| **24/7 Operation** | ❌ | ❌ | ❌ | **✅ Autonomous** |
+
+The secret sauce: **Qwen + Ollama generate scripts in parallel**, then **cross-score each other** to eliminate AI slop before it reaches production.
+
+---
+
+## 🏗️ Architecture
+
+```
+ Campaign    →  Topic Engine  →  Research Engine
+ Schedule        (trends)          (web context)
+                                        ↓
+    ┌───────────────────────────────────┴───────────────────────────────┐
+    │                    DUAL PARALLEL AI GENERATION                     │
+    │  ┌──────────┐     cross-score     ┌──────────┐                    │
+    │  │   QWEN   │ ←───────────────→ │  OLLAMA  │                    │
+    │  │ self-host │                    │  local   │                    │
+    │  └────┬─────┘                    └────┬─────┘                    │
+    │       └──────────┬───────────────────┘                          │
+    │                  ↓                                              │
+    │         Script Quality Scorer                                   │
+    │    (hook · pacing · curiosity · retention)                       │
+    └──────────────────────┬──────────────────────────────────────────┘
+                           ↓
+    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → Upload
+    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue
+```
+
+---
+
 ## ⚙️ 12-Engine Architecture
 
 ### 📡 Viral Loop Engine

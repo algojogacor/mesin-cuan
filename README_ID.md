@@ -39,6 +39,44 @@ Bayangkan memiliki tim produksi lengkap — riset tren, penulis naskah, voice-ov
 
 ---
 
+## 🤔 Kenapa Mesin Cuan?
+
+| | Editing Manual | Hiring Editor | AI Tools Lain | **Mesin Cuan** |
+|---|---|---|---|---|
+| **Biaya** | Waktu kamu (8j/video) | Rp 7-30jt/bulan | Rp 300rb-1.5jt/bln | **Gratis (self-hosted)** |
+| **Kecepatan** | 1 video/hari | 2-3 video/minggu | 1-2 video/hari | **12+ video/hari** |
+| **Kualitas** | Tergantung skill | Bervariasi | Terasa AI generik | **Dual AI cross-scored** |
+| **Privasi Data** | ✅ | ❌ Dibagi ke editor | ❌ Upload ke cloud | **✅ 100% lokal** |
+| **Operasi 24/7** | ❌ | ❌ | ❌ | **✅ Otonom** |
+
+Rahasia utamanya: **Qwen + Ollama generate naskah secara paralel**, lalu **saling menilai** untuk mengeliminasi AI slop sebelum masuk produksi.
+
+---
+
+## 🏗️ Arsitektur
+
+```
+ Campaign    →  Topic Engine  →  Research Engine
+ Schedule        (tren)            (konteks web)
+                                        ↓
+    ┌───────────────────────────────────┴───────────────────────────────┐
+    │                  DUAL PARALLEL AI GENERATION                       │
+    │  ┌──────────┐     cross-score     ┌──────────┐                    │
+    │  │   QWEN   │ ←───────────────→ │  OLLAMA  │                    │
+    │  │ self-host │                    │  lokal   │                    │
+    │  └────┬─────┘                    └────┬─────┘                    │
+    │       └──────────┬───────────────────┘                          │
+    │                  ↓                                              │
+    │         Script Quality Scorer                                   │
+    │    (hook · pacing · curiosity · retention)                       │
+    └──────────────────────┬──────────────────────────────────────────┘
+                           ↓
+    Hook → TTS → Footage → FFmpeg → Vision QC → Thumbnail → Upload
+    Engine   (F5)  (Pexels)  Render    (NVIDIA)   Intelligence  Queue
+```
+
+---
+
 ## ⚙️ Arsitektur 12 Engine
 
 ### 📡 Viral Loop Engine
