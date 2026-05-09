@@ -25,6 +25,8 @@
 
 </div>
 
+![Demo](docs/demo.gif)
+
 > 📖 [🇮🇩 Baca dalam Bahasa Indonesia](README_ID.md)
 
 ---

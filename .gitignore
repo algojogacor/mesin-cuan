@@ -60,6 +60,7 @@ render/
 *.jpeg
 *.png
 *.gif
+!docs/demo.gif
 *.webp
 
 # Subtitle & teks temp
@@ -153,3 +154,4 @@ strategi_cli.py
 # ══════════════════════════════════════════════════════════════tesqwen.py
 tesqwen.py
 .hermes/
+docs/*.mp4

@@ -25,6 +25,8 @@
 
 </div>
 
+![Demo](docs/demo.gif)
+
 > 📖 [🇬🇧 Read in English](README.md)
 
 ---
