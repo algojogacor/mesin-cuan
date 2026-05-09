@@ -133,9 +133,9 @@ Prediksi ETA untuk batch render multi-channel — estimasi akurat sebelum ekseku
 | **Footage** | Pexels API · Pixabay API | B-roll footage + clip cache |
 | **SFX** | Freesound API | Sound effect otomatis |
 | **Upload** | YouTube Data API v3 (OAuth2) | Upload & scheduling |
-| **Analytics** | YouTube Analytics API v2 | Retensi & insight |
+| **Analytics** | YouTube Data API v3 | Retensi & insight |
 | **Trending** | YouTube API · Google Trends | Deteksi tren real-time |
-| **Research** | Web scraping + NLP | Konteks akurat sebelum naskah |
+| **Research** | Perplexity API / Ollama | Konteks akurat sebelum naskah |
 | **Storage** | Google Drive API v3 | Antrian upload |
 | **Notifikasi** | Telegram Bot API | Alert real-time |
 | **Scheduler** | APScheduler | Campaign automation |
@@ -189,9 +189,6 @@ python main.py
 # Jalankan channel tertentu saja
 python main.py --channel ch_id_horror
 
-# Jalankan semua channel sekaligus
-python main.py --all
-
 # Preview jadwal tanpa render
 python main.py --preview
 
@@ -203,6 +200,18 @@ python main.py --skip-qc
 
 # Update dashboard analytics retensi
 python main.py --analytics
+
+# Generate naskah saja (tanpa render)
+python main.py --script-only
+
+# Review kualitas hook tanpa render penuh
+python main.py --review-hook
+
+# Pilih profil: shorts atau long_form
+python main.py --profile long_form
+
+# Aktifkan debug logging
+python main.py --debug
 ```
 
 ---

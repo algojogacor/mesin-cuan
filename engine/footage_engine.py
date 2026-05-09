@@ -9,8 +9,8 @@ Fallback pool: stok lokal per niche (tidak pernah kosong)
 .env variables yang dibutuhkan:
   PIXABAY_API_KEY   — https://pixabay.com/api/docs/
   PEXELS_API_KEY    — https://www.pexels.com/api/
-  COVERR_API_KEY    — ec7836795048a65862b3d83fb53ab15a
-  COVERR_APP_ID     — 9A5D5E43C12102FD5B8E
+  COVERR_API_KEY    — daftar di https://coverr.co (opsional)
+  COVERR_APP_ID     — daftar di https://coverr.co (opsional)
 
 CHANGELOG v3:
   - visual_cues dari script_engine sekarang dibaca dan di-parse jadi search query

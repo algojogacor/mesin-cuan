@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mesin-cuan:
+    build: .
+    container_name: mesin-cuan
+    volumes:
+      - ./.env:/app/.env
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_BASE_URL=http://localhost:11434
+    network_mode: host  # Ollama needs localhost access
+    restart: unless-stopped
+
+volumes:
+  ollama-data:

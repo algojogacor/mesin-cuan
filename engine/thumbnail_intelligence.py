@@ -34,7 +34,7 @@ logger = get_logger("thumbnail_intelligence")
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
-QWEN_API_BASE   = os.environ.get("QWEN_API_BASE",   "http://34.57.12.120:9000/v1")
+QWEN_API_BASE   = os.environ.get("QWEN_API_BASE", "http://localhost:9000/v1")
 QWEN_MODEL      = os.environ.get("QWEN_MODEL",      "qwen3-235b-a22b")
 QWEN_MODEL_CANDIDATES = [
     m.strip() for m in os.environ.get(

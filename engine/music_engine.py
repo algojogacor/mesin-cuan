@@ -40,7 +40,7 @@ AUTO_MUSIC_PROMOTE_FETCHED = _env_flag("AUTO_MUSIC_PROMOTE_FETCHED", True)
 LOCAL_MUSIC_MIN_TRACKS = int(os.environ.get("LOCAL_MUSIC_MIN_TRACKS", "10"))
 MUSIC_AI_SELECTION = _env_flag("MUSIC_AI_SELECTION", True)
 MUSIC_SELECTION_MAX_CANDIDATES = int(os.environ.get("MUSIC_SELECTION_MAX_CANDIDATES", "10"))
-QWEN_API_BASE = os.environ.get("QWEN_API_BASE", "http://34.57.12.120:9000/v1")
+QWEN_API_BASE = os.environ.get("QWEN_API_BASE", "http://localhost:9000/v1")
 QWEN_MODEL = os.environ.get("QWEN_MODEL", "qwen3-235b-a22b")
 OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 

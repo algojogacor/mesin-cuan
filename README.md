@@ -133,9 +133,9 @@ ETA prediction for multi-channel batch renders — accurate estimation before ex
 | **Footage** | Pexels API · Pixabay API | B-roll footage + clip cache |
 | **SFX** | Freesound API | Automated sound effects |
 | **Upload** | YouTube Data API v3 (OAuth2) | Scheduled uploads |
-| **Analytics** | YouTube Analytics API v2 | Retention & insights |
+| **Analytics** | YouTube Data API v3 | Retention & insights |
 | **Trending** | YouTube API · Google Trends | Real-time trend detection |
-| **Research** | Web scraping + NLP | Accurate context before scripting |
+| **Research** | Perplexity API / Ollama | Accurate context before scripting |
 | **Storage** | Google Drive API v3 | Upload queue |
 | **Notifications** | Telegram Bot API | Real-time alerts |
 | **Scheduler** | APScheduler | Campaign automation |
@@ -189,9 +189,6 @@ python main.py
 # Run a specific channel only
 python main.py --channel ch_id_horror
 
-# Run all channels simultaneously
-python main.py --all
-
 # Preview campaign schedule without rendering
 python main.py --preview
 
@@ -203,6 +200,18 @@ python main.py --skip-qc
 
 # Refresh per-channel retention analytics
 python main.py --analytics
+
+# Generate script only (no render)
+python main.py --script-only
+
+# Review hook quality without full render
+python main.py --review-hook
+
+# Specify profile: shorts or long_form
+python main.py --profile long_form
+
+# Enable debug logging
+python main.py --debug
 ```
 
 ---
