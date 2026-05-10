@@ -5,7 +5,6 @@ Setiap channel pakai Google Cloud Project sendiri
 
 import os
 import json
-import pickle
 import base64
 from dotenv import load_dotenv
 
@@ -22,7 +21,7 @@ def setup_channel(channel: dict):
     ch_id       = channel["id"]
     ch_name     = channel["name"]
     secret_file = channel.get("google_client_secret", "config/google_client_secret.json")
-    token_file  = channel["credentials_file"].replace("_token.json", "_token_token.pickle")
+    token_file  = channel["credentials_file"].replace("_token.json", "_v2.json")
 
     print(f"\n{'='*50}")
     print(f"Setup channel: {ch_name} ({ch_id})")
@@ -48,12 +47,12 @@ def setup_channel(channel: dict):
     creds = flow.run_local_server(port=0)
 
     os.makedirs(os.path.dirname(token_file), exist_ok=True)
-    with open(token_file, "wb") as f:
-        pickle.dump(creds, f)
+    with open(token_file, "w", encoding="utf-8") as f:
+        f.write(creds.to_json())
 
     # Export base64 untuk Koyeb env variable
-    with open(token_file, "rb") as f:
-        b64 = base64.b64encode(f.read()).decode("utf-8")
+    with open(token_file, "r", encoding="utf-8") as f:
+        b64 = base64.b64encode(f.read().encode("utf-8")).decode("utf-8")
 
     env_key = f"TOKEN_{ch_id.upper()}"
     print(f"\n✅ Token disimpan: {token_file}")
