@@ -54,6 +54,8 @@ render/
 *.webm
 *.mkv
 *.mov
+# KECUALI: assets/music/ (music pack wajib untuk render)
+!assets/music/
 
 # Gambar temp/hasil generate (Bisa menuhin repo)
 *.jpg
@@ -132,7 +134,7 @@ desktop.ini
 
 
 # ── ASSETS (BERAT / LARGE FILES) ─────────────────────────────
-assets/music/
+# assets/music/ → DIPERBOLEHKAN (music pack untuk render)
 assets/sfx/
 # Font boleh di-commit (kecil)
 # assets/fonts/ → TIDAK diignore
