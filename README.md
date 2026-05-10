@@ -188,6 +188,9 @@ python check_requirements.py
 # Run all channels according to campaign schedule
 python main.py
 
+# 🔑 Interactive API Key Setup Wizard (no manual .env editing)
+python main.py --setup
+
 # Run a specific channel only
 python main.py --channel ch_id_horror
 
@@ -218,6 +221,48 @@ python main.py --debug
 
 ---
 
+## 🔑 API Key Reference
+
+### 🔴 Required — Pipeline won't work without these
+
+| Key | Provider | Purpose | Get It Here |
+|---|---|---|---|
+| `YOUTUBE_API_KEY` | YouTube Data API v3 | Trending detection & topic discovery | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `PEXELS_API_KEY` | Pexels | B-roll footage & images | [pexels.com/api](https://www.pexels.com/api/) |
+| `GOOGLE_CLIENT_ID` | Google OAuth2 | YouTube upload + Google Drive | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth2 | Pair for GOOGLE_CLIENT_ID | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `GOOGLE_DRIVE_FOLDER_ID` | Google Drive | Upload queue folder | Right-click folder → Share → Copy link |
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot API | Real-time notifications | [@BotFather](https://t.me/BotFather) |
+| `TELEGRAM_CHAT_ID` | Telegram | Notification target | [@userinfobot](https://t.me/userinfobot) |
+
+### 🟠 AI Provider — At least 1 required, recommend all for fallback
+
+| Key | Provider | Purpose | Get It Here |
+|---|---|---|---|
+| `GEMINI_API_KEY` | Google Gemini | **Recommended** — script generation & QC Vision | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| `QWEN_API_KEY` | Qwen DashScope | Dual parallel AI script generation | [dashscope.console.aliyun.com](https://dashscope.console.aliyun.com/apiKey) |
+| `GROQ_API_KEY` | Groq | Fast fallback LLM | [console.groq.com/keys](https://console.groq.com/keys) |
+
+> ⚠️ Without an AI Provider, script generation won't run. Fill in at least 1.
+
+### 🟡 Optional — Tool still works, specific features gracefully skip
+
+| Key | Provider | Purpose | Impact if Missing |
+|---|---|---|---|
+| `PIXABAY_API_KEY` | Pixabay | Footage fallback | No fallback footage |
+| `PERPLEXITY_API_KEY` | Perplexity | Web research — accurate context | Uses local Ollama instead |
+| `ANTHROPIC_API_KEY` | Anthropic | Last-resort AI fallback | Only 3-tier fallback chain |
+| `NVIDIA_API_KEY` | NVIDIA NIM | Vision QC alternative (free) | QC via Gemini only |
+| `ASSEMBLYAI_API_KEY` | AssemblyAI | Podcast transcription | No transcript feature |
+| `ELEVENLABS_API_KEY` | ElevenLabs | Premium TTS voices | Fallback: Edge TTS (free) |
+| `FREESOUND_API_KEY` | Freesound | Niche-based auto SFX | No sound effects |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare | Google Trends scraping | Limited trending |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare | Pair for ACCOUNT_ID | — |
+| `COVERR_API_KEY` | Coverr | Free stock video | Alternative footage source |
+| `COVERR_APP_ID` | Coverr | Pair for COVERR_API_KEY | — |
+
+> 💡 **Pro tip:** Run `python main.py --setup` for an interactive setup wizard — no manual `.env` editing needed!
+
 ## ⚡ Quick Start (Minimal Mode)
 
 Only need **Ollama + FFmpeg** — no API keys required:
@@ -231,12 +276,12 @@ ollama pull llama3.3:latest
 # macOS: brew install ffmpeg
 # Windows: https://ffmpeg.org/download.html
 
-# 3. Run with Ollama only (skip footage, upload, analytics)
+# 3. Run the API key setup wizard (or skip — Ollama-only mode)
+python main.py --setup
+
+# 4. Run with Ollama only (skip footage, upload, analytics)
 python main.py --channel ch_id_horror --skip-qc
 ```
-
-Features that work without API keys: AI scripting (Ollama), TTS (Edge TTS free), SFX, render.
-Features needing keys: B-roll footage (Pexels/Pixabay), YouTube upload, Google Drive storage.
 
 ---
 
