@@ -1,0 +1,1316 @@
+{
+  "dark ambient": [
+    {
+      "file": "assets/music/dark ambient/track_1.mp3",
+      "source_url": "https://assets.mixkit.co/music/127/127.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 4280902,
+      "title": "Dark Ambient Pulse 1",
+      "tags": [
+        "ambient",
+        "dark",
+        "pulse"
+      ]
+    },
+    {
+      "file": "assets/music/dark ambient/track_2.mp3",
+      "source_url": "https://assets.mixkit.co/music/292/292.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 3458238,
+      "title": "Dark Ambient Pulse 2",
+      "tags": [
+        "ambient",
+        "dark",
+        "pulse"
+      ]
+    },
+    {
+      "file": "assets/music/dark ambient/track_3.mp3",
+      "source_url": "https://assets.mixkit.co/music/139/139.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 3622988,
+      "title": "Dark Ambient Pulse 3",
+      "tags": [
+        "ambient",
+        "dark",
+        "pulse"
+      ]
+    },
+    {
+      "file": "assets/music/dark ambient/track_4.mp3",
+      "source_url": "https://assets.mixkit.co/music/749/749.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Relaxation 05",
+      "tags": [
+        "ambient",
+        "lily j",
+        "relaxation"
+      ],
+      "artist": "Lily J",
+      "duration": 118
+    },
+    {
+      "file": "assets/music/dark ambient/track_5.mp3",
+      "source_url": "https://assets.mixkit.co/music/138/138.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Forest Treasure",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "forest",
+        "treasure"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 104
+    },
+    {
+      "file": "assets/music/dark ambient/track_6.mp3",
+      "source_url": "https://assets.mixkit.co/music/184/184.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Vastness",
+      "tags": [
+        "ambient",
+        "andrew ev",
+        "vastness"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 230
+    },
+    {
+      "file": "assets/music/dark ambient/track_7.mp3",
+      "source_url": "https://assets.mixkit.co/music/607/607.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Forest Walk",
+      "tags": [
+        "electronica",
+        "eugenio mininni",
+        "forest",
+        "walk"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 174
+    },
+    {
+      "file": "assets/music/dark ambient/track_8.mp3",
+      "source_url": "https://assets.mixkit.co/music/588/588.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Feedback Dreams",
+      "tags": [
+        "ambient",
+        "dreams",
+        "eugenio mininni",
+        "feedback"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 149
+    },
+    {
+      "file": "assets/music/dark ambient/track_9.mp3",
+      "source_url": "https://assets.mixkit.co/music/441/441.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Meditation",
+      "tags": [
+        "ambient",
+        "arulo",
+        "meditation"
+      ],
+      "artist": "Arulo",
+      "duration": 118
+    },
+    {
+      "file": "assets/music/dark ambient/track_10.mp3",
+      "source_url": "https://assets.mixkit.co/music/140/140.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/ambient/",
+      "bytes": 0,
+      "title": "Cyberpunk City",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "city",
+        "cyberpunk"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 100
+    }
+  ],
+  "dark intro": [
+    {
+      "file": "assets/music/dark intro/track_1.mp3",
+      "source_url": "https://assets.mixkit.co/music/671/671.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 3617898,
+      "title": "Dark Intro Omen 1",
+      "tags": [
+        "dark",
+        "eerie",
+        "intro",
+        "omen"
+      ]
+    },
+    {
+      "file": "assets/music/dark intro/track_2.mp3",
+      "source_url": "https://assets.mixkit.co/music/188/188.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 9052021,
+      "title": "Dark Intro Omen 2",
+      "tags": [
+        "dark",
+        "eerie",
+        "intro",
+        "omen"
+      ]
+    },
+    {
+      "file": "assets/music/dark intro/track_3.mp3",
+      "source_url": "https://assets.mixkit.co/music/612/612.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 6197797,
+      "title": "Dark Intro Omen 3",
+      "tags": [
+        "dark",
+        "eerie",
+        "intro",
+        "omen"
+      ]
+    },
+    {
+      "file": "assets/music/dark intro/track_4.mp3",
+      "source_url": "https://assets.mixkit.co/music/140/140.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Cyberpunk City",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "city",
+        "cyberpunk"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 100
+    },
+    {
+      "file": "assets/music/dark intro/track_5.mp3",
+      "source_url": "https://assets.mixkit.co/music/64/64.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Dark Shadows",
+      "tags": [
+        "ahjay stelino",
+        "dark",
+        "shadows",
+        "traditional"
+      ],
+      "artist": "Ahjay Stelino",
+      "duration": 106
+    },
+    {
+      "file": "assets/music/dark intro/track_6.mp3",
+      "source_url": "https://assets.mixkit.co/music/625/625.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Fragments Of Bangkok",
+      "tags": [
+        "bangkok",
+        "eugenio mininni",
+        "film score",
+        "fragments"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 300
+    },
+    {
+      "file": "assets/music/dark intro/track_7.mp3",
+      "source_url": "https://assets.mixkit.co/music/633/633.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Xanthos",
+      "tags": [
+        "drone",
+        "eugenio mininni",
+        "xanthos"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 296
+    },
+    {
+      "file": "assets/music/dark intro/track_8.mp3",
+      "source_url": "https://assets.mixkit.co/music/564/564.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Goats",
+      "tags": [
+        "atmospheres",
+        "eugenio mininni",
+        "goats"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 212
+    },
+    {
+      "file": "assets/music/dark intro/track_9.mp3",
+      "source_url": "https://assets.mixkit.co/music/73/73.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/eerie/",
+      "bytes": 0,
+      "title": "Torn Threads",
+      "tags": [
+        "ahjay stelino",
+        "electronica",
+        "threads",
+        "torn"
+      ],
+      "artist": "Ahjay Stelino",
+      "duration": 116
+    },
+    {
+      "file": "assets/music/dark intro/seed_10.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 3458238,
+      "title": "Dark Intro Cut 1 - Pulse 2",
+      "tags": [
+        "ambient",
+        "dark",
+        "intro",
+        "pulse"
+      ],
+      "artist": "",
+      "duration": 0
+    }
+  ],
+  "horror tension": [
+    {
+      "file": "assets/music/horror tension/track_1.mp3",
+      "source_url": "https://assets.mixkit.co/music/871/871.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 3243407,
+      "title": "Horror Tension Pulse 1",
+      "tags": [
+        "horror",
+        "pulse",
+        "tension"
+      ]
+    },
+    {
+      "file": "assets/music/horror tension/track_2.mp3",
+      "source_url": "https://assets.mixkit.co/music/671/671.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 3617898,
+      "title": "Horror Tension Pulse 2",
+      "tags": [
+        "horror",
+        "pulse",
+        "tension"
+      ]
+    },
+    {
+      "file": "assets/music/horror tension/track_3.mp3",
+      "source_url": "https://assets.mixkit.co/music/676/676.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 3392455,
+      "title": "Horror Tension Pulse 3",
+      "tags": [
+        "horror",
+        "pulse",
+        "tension"
+      ]
+    },
+    {
+      "file": "assets/music/horror tension/seed_4.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 5577546,
+      "title": "Horror Tension Cut 1 - Forest Walk",
+      "tags": [
+        "electronica",
+        "eugenio mininni",
+        "forest",
+        "horror",
+        "tension",
+        "walk"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 174
+    },
+    {
+      "file": "assets/music/horror tension/seed_5.mp3",
+      "source_url": "local_seed:horror climax",
+      "source_page": "local_seed:horror climax",
+      "bytes": 3243407,
+      "title": "Horror Tension Cut 2 - Horror Climax Surge 1",
+      "tags": [
+        "climax",
+        "horror",
+        "surge",
+        "suspense",
+        "tension"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/horror tension/track_6.mp3",
+      "source_url": "https://assets.mixkit.co/music/281/281.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 0,
+      "title": "Complicated",
+      "tags": [
+        "arulo",
+        "complicated",
+        "hip hop"
+      ],
+      "artist": "Arulo",
+      "duration": 109
+    },
+    {
+      "file": "assets/music/horror tension/track_7.mp3",
+      "source_url": "https://assets.mixkit.co/music/188/188.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 0,
+      "title": "Echoes",
+      "tags": [
+        "andrew ev",
+        "atmospheres",
+        "echoes"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 226
+    },
+    {
+      "file": "assets/music/horror tension/track_8.mp3",
+      "source_url": "https://assets.mixkit.co/music/680/680.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 0,
+      "title": "Epical Drums 05",
+      "tags": [
+        "drums",
+        "epical",
+        "grigoriy nuzhny",
+        "orchestral hybrid"
+      ],
+      "artist": "Grigoriy Nuzhny",
+      "duration": 102
+    },
+    {
+      "file": "assets/music/horror tension/track_9.mp3",
+      "source_url": "https://assets.mixkit.co/music/677/677.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 0,
+      "title": "Epical Drums 02",
+      "tags": [
+        "drums",
+        "epical",
+        "grigoriy nuzhny",
+        "percussion trailer"
+      ],
+      "artist": "Grigoriy Nuzhny",
+      "duration": 123
+    },
+    {
+      "file": "assets/music/horror tension/track_10.mp3",
+      "source_url": "https://assets.mixkit.co/music/565/565.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/tension/",
+      "bytes": 0,
+      "title": "Fallen (Asper)",
+      "tags": [
+        "asper",
+        "atmospheres",
+        "eugenio mininni",
+        "fallen"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 295
+    }
+  ],
+  "horror climax": [
+    {
+      "file": "assets/music/horror climax/track_1.mp3",
+      "source_url": "https://assets.mixkit.co/music/871/871.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 3243407,
+      "title": "Horror Climax Surge 1",
+      "tags": [
+        "climax",
+        "horror",
+        "surge",
+        "suspense"
+      ]
+    },
+    {
+      "file": "assets/music/horror climax/track_2.mp3",
+      "source_url": "https://assets.mixkit.co/music/671/671.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 3617898,
+      "title": "Horror Climax Surge 2",
+      "tags": [
+        "climax",
+        "horror",
+        "surge",
+        "suspense"
+      ]
+    },
+    {
+      "file": "assets/music/horror climax/track_3.mp3",
+      "source_url": "https://assets.mixkit.co/music/676/676.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 3392455,
+      "title": "Horror Climax Surge 3",
+      "tags": [
+        "climax",
+        "horror",
+        "surge",
+        "suspense"
+      ]
+    },
+    {
+      "file": "assets/music/horror climax/track_4.mp3",
+      "source_url": "https://assets.mixkit.co/music/188/188.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Echoes",
+      "tags": [
+        "andrew ev",
+        "atmospheres",
+        "echoes"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 226
+    },
+    {
+      "file": "assets/music/horror climax/track_5.mp3",
+      "source_url": "https://assets.mixkit.co/music/680/680.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Epical Drums 05",
+      "tags": [
+        "drums",
+        "epical",
+        "grigoriy nuzhny",
+        "orchestral hybrid"
+      ],
+      "artist": "Grigoriy Nuzhny",
+      "duration": 102
+    },
+    {
+      "file": "assets/music/horror climax/track_6.mp3",
+      "source_url": "https://assets.mixkit.co/music/677/677.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Epical Drums 02",
+      "tags": [
+        "drums",
+        "epical",
+        "grigoriy nuzhny",
+        "percussion trailer"
+      ],
+      "artist": "Grigoriy Nuzhny",
+      "duration": 123
+    },
+    {
+      "file": "assets/music/horror climax/track_7.mp3",
+      "source_url": "https://assets.mixkit.co/music/538/538.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Nield Grohm Hanging 1",
+      "tags": [
+        "eugenio mininni",
+        "grohm",
+        "hanging",
+        "nield",
+        "world fusion"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 222
+    },
+    {
+      "file": "assets/music/horror climax/track_8.mp3",
+      "source_url": "https://assets.mixkit.co/music/565/565.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Fallen (Asper)",
+      "tags": [
+        "asper",
+        "atmospheres",
+        "eugenio mininni",
+        "fallen"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 295
+    },
+    {
+      "file": "assets/music/horror climax/track_9.mp3",
+      "source_url": "https://assets.mixkit.co/music/724/724.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "PlaceIt World 01",
+      "tags": [
+        "corporate",
+        "lily j",
+        "placeit",
+        "world"
+      ],
+      "artist": "Lily J",
+      "duration": 96
+    },
+    {
+      "file": "assets/music/horror climax/track_10.mp3",
+      "source_url": "https://assets.mixkit.co/music/464/464.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/suspenseful/",
+      "bytes": 0,
+      "title": "Sci-Fi Score",
+      "tags": [
+        "arulo",
+        "electronic",
+        "score"
+      ],
+      "artist": "Arulo",
+      "duration": 97
+    }
+  ],
+  "dark mystery": [
+    {
+      "file": "assets/music/dark mystery/track_1.mp3",
+      "source_url": "https://assets.mixkit.co/music/538/538.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/cautious/",
+      "bytes": 7106441,
+      "title": "Dark Mystery Veil 1",
+      "tags": [
+        "cautious",
+        "dark",
+        "mystery",
+        "veil"
+      ]
+    },
+    {
+      "file": "assets/music/dark mystery/track_2.mp3",
+      "source_url": "https://assets.mixkit.co/music/658/658.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/cautious/",
+      "bytes": 4786586,
+      "title": "Dark Mystery Veil 2",
+      "tags": [
+        "cautious",
+        "dark",
+        "mystery",
+        "veil"
+      ]
+    },
+    {
+      "file": "assets/music/dark mystery/track_3.mp3",
+      "source_url": "https://assets.mixkit.co/music/597/597.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/cautious/",
+      "bytes": 6099867,
+      "title": "Dark Mystery Veil 3",
+      "tags": [
+        "cautious",
+        "dark",
+        "mystery",
+        "veil"
+      ]
+    },
+    {
+      "file": "assets/music/dark mystery/track_4.mp3",
+      "source_url": "https://assets.mixkit.co/music/608/608.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/cautious/",
+      "bytes": 0,
+      "title": "Mada",
+      "tags": [
+        "eugenio mininni",
+        "mada",
+        "rock"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 148
+    },
+    {
+      "file": "assets/music/dark mystery/track_5.mp3",
+      "source_url": "https://assets.mixkit.co/music/642/642.mp3",
+      "source_page": "https://mixkit.co/free-stock-music/mood/cautious/",
+      "bytes": 0,
+      "title": "Latin Jazz",
+      "tags": [
+        "francisco alvear",
+        "jazz",
+        "latin",
+        "world"
+      ],
+      "artist": "Francisco Alvear",
+      "duration": 139
+    },
+    {
+      "file": "assets/music/dark mystery/seed_6.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 3458238,
+      "title": "Dark Mystery Cut 1 - Pulse 2",
+      "tags": [
+        "ambient",
+        "dark",
+        "intro",
+        "mystery",
+        "pulse"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark mystery/seed_7.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 6788792,
+      "title": "Dark Mystery Cut 2 - Goats",
+      "tags": [
+        "atmospheres",
+        "dark",
+        "eugenio mininni",
+        "goats",
+        "mystery"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 212
+    },
+    {
+      "file": "assets/music/dark mystery/seed_8.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 5577546,
+      "title": "Dark Mystery Cut 3 - Forest Walk",
+      "tags": [
+        "dark",
+        "electronica",
+        "eugenio mininni",
+        "forest",
+        "horror",
+        "mystery",
+        "tension",
+        "walk"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 174
+    },
+    {
+      "file": "assets/music/dark mystery/seed_9.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3243407,
+      "title": "Dark Mystery Cut 4 - Horror Tension Pulse 1",
+      "tags": [
+        "dark",
+        "horror",
+        "mystery",
+        "pulse",
+        "tension"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark mystery/seed_10.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 4280902,
+      "title": "Dark Mystery Cut 5 - Dark Ambient Pulse 1",
+      "tags": [
+        "ambient",
+        "dark",
+        "mystery",
+        "pulse"
+      ],
+      "artist": "",
+      "duration": 0
+    }
+  ],
+  "dark intro with sudden rhythmic cuts": [
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_1.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 5577546,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 1 - Forest Walk",
+      "tags": [
+        "cuts",
+        "dark",
+        "electronica",
+        "eugenio mininni",
+        "forest",
+        "intro",
+        "rhythmic",
+        "sudden",
+        "walk",
+        "with"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 174
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_2.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 3617898,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 2 - Variant 2",
+      "tags": [
+        "cuts",
+        "dark",
+        "eerie",
+        "intro",
+        "omen",
+        "rhythmic",
+        "sudden",
+        "variant",
+        "with"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_3.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 3329580,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 3 - Forest Treasure",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "cuts",
+        "dark",
+        "forest",
+        "intro",
+        "rhythmic",
+        "sudden",
+        "treasure",
+        "with"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 104
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_4.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 4780080,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 4 - Feedback Dreams",
+      "tags": [
+        "ambient",
+        "cuts",
+        "dark",
+        "dreams",
+        "eugenio mininni",
+        "feedback",
+        "intro",
+        "rhythmic",
+        "sudden",
+        "with"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 149
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_5.mp3",
+      "source_url": "local_seed:dark mystery",
+      "source_page": "local_seed:dark mystery",
+      "bytes": 4721566,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 5 - Mada",
+      "tags": [
+        "cuts",
+        "dark",
+        "eugenio mininni",
+        "intro",
+        "mada",
+        "rhythmic",
+        "rock",
+        "sudden",
+        "with"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 148
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_6.mp3",
+      "source_url": "local_seed:dark mystery",
+      "source_page": "local_seed:dark mystery",
+      "bytes": 7106441,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 6 - Variant 6",
+      "tags": [
+        "cautious",
+        "cuts",
+        "dark",
+        "intro",
+        "mystery",
+        "rhythmic",
+        "sudden",
+        "variant",
+        "veil",
+        "with"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_7.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3392455,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 7 - Variant 7",
+      "tags": [
+        "cuts",
+        "dark",
+        "horror",
+        "intro",
+        "pulse",
+        "rhythmic",
+        "sudden",
+        "tension",
+        "variant",
+        "with"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_8.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3617898,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 8 - Variant 8",
+      "tags": [
+        "cuts",
+        "dark",
+        "horror",
+        "intro",
+        "pulse",
+        "rhythmic",
+        "sudden",
+        "tension",
+        "variant",
+        "with"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_9.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 9594970,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 9 - Fragments Of Bangkok",
+      "tags": [
+        "bangkok",
+        "cuts",
+        "dark",
+        "eugenio mininni",
+        "film score",
+        "fragments",
+        "intro",
+        "rhythmic",
+        "sudden",
+        "with"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 300
+    },
+    {
+      "file": "assets/music/dark intro with sudden rhythmic cuts/seed_10.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 3191654,
+      "title": "Dark Intro With Sudden Rhythmic Cuts Cut 10 - Cyberpunk City",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "city",
+        "cuts",
+        "cyberpunk",
+        "dark",
+        "intro",
+        "rhythmic",
+        "sudden",
+        "with"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 100
+    }
+  ],
+  "dark psychological suspense": [
+    {
+      "file": "assets/music/dark psychological suspense/seed_1.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3278770,
+      "title": "Dark Psychological Suspense Cut 1 - Epical Drums 05",
+      "tags": [
+        "dark",
+        "drums",
+        "epical",
+        "grigoriy nuzhny",
+        "orchestral hybrid",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Grigoriy Nuzhny",
+      "duration": 102
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_2.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 4780080,
+      "title": "Dark Psychological Suspense Cut 2 - Feedback Dreams",
+      "tags": [
+        "ambient",
+        "dark",
+        "dreams",
+        "eugenio mininni",
+        "feedback",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 149
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_3.mp3",
+      "source_url": "local_seed:horror climax",
+      "source_page": "local_seed:horror climax",
+      "bytes": 3392455,
+      "title": "Dark Psychological Suspense Cut 3 - Variant 3",
+      "tags": [
+        "climax",
+        "dark",
+        "horror",
+        "psychological",
+        "surge",
+        "suspense",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_4.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 6788792,
+      "title": "Dark Psychological Suspense Cut 4 - Goats",
+      "tags": [
+        "atmospheres",
+        "dark",
+        "eugenio mininni",
+        "goats",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 212
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_5.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3392455,
+      "title": "Dark Psychological Suspense Cut 5 - Variant 5",
+      "tags": [
+        "dark",
+        "horror",
+        "psychological",
+        "pulse",
+        "suspense",
+        "tension",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_6.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 3329580,
+      "title": "Dark Psychological Suspense Cut 6 - Forest Treasure",
+      "tags": [
+        "alejandro magaña (a. m.)",
+        "ambient",
+        "dark",
+        "forest",
+        "psychological",
+        "suspense",
+        "treasure"
+      ],
+      "artist": "Alejandro Magaña (A. M.)",
+      "duration": 104
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_7.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 9052021,
+      "title": "Dark Psychological Suspense Cut 7 - Variant 7",
+      "tags": [
+        "dark",
+        "eerie",
+        "intro",
+        "omen",
+        "psychological",
+        "suspense",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_8.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 9436800,
+      "title": "Dark Psychological Suspense Cut 8 - Fallen (Asper)",
+      "tags": [
+        "asper",
+        "atmospheres",
+        "dark",
+        "eugenio mininni",
+        "fallen",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 295
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_9.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 9052021,
+      "title": "Dark Psychological Suspense Cut 9 - Echoes",
+      "tags": [
+        "andrew ev",
+        "atmospheres",
+        "dark",
+        "echoes",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 226
+    },
+    {
+      "file": "assets/music/dark psychological suspense/seed_10.mp3",
+      "source_url": "local_seed:horror climax",
+      "source_page": "local_seed:horror climax",
+      "bytes": 9052021,
+      "title": "Dark Psychological Suspense Cut 10 - Echoes",
+      "tags": [
+        "andrew ev",
+        "atmospheres",
+        "dark",
+        "echoes",
+        "psychological",
+        "suspense"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 226
+    }
+  ],
+  "dark, oppressive industrial drone": [
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_1.mp3",
+      "source_url": "local_seed:dark mystery",
+      "source_page": "local_seed:dark mystery",
+      "bytes": 4463086,
+      "title": "Dark, Oppressive Industrial Drone Cut 1 - Latin Jazz",
+      "tags": [
+        "dark",
+        "dark,",
+        "drone",
+        "francisco alvear",
+        "industrial",
+        "jazz",
+        "latin",
+        "oppressive",
+        "world"
+      ],
+      "artist": "Francisco Alvear",
+      "duration": 139
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_2.mp3",
+      "source_url": "local_seed:dark mystery",
+      "source_page": "local_seed:dark mystery",
+      "bytes": 3458238,
+      "title": "Dark, Oppressive Industrial Drone Cut 2 - Pulse 2",
+      "tags": [
+        "ambient",
+        "dark",
+        "dark,",
+        "drone",
+        "industrial",
+        "intro",
+        "mystery",
+        "oppressive",
+        "pulse"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_3.mp3",
+      "source_url": "local_seed:horror climax",
+      "source_page": "local_seed:horror climax",
+      "bytes": 3120527,
+      "title": "Dark, Oppressive Industrial Drone Cut 3 - Sci-Fi Score",
+      "tags": [
+        "arulo",
+        "dark",
+        "dark,",
+        "drone",
+        "electronic",
+        "industrial",
+        "oppressive",
+        "score"
+      ],
+      "artist": "Arulo",
+      "duration": 97
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_4.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 7356125,
+      "title": "Dark, Oppressive Industrial Drone Cut 4 - Vastness",
+      "tags": [
+        "ambient",
+        "andrew ev",
+        "dark",
+        "dark,",
+        "drone",
+        "industrial",
+        "oppressive",
+        "vastness"
+      ],
+      "artist": "Andrew Ev",
+      "duration": 230
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_5.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 6788792,
+      "title": "Dark, Oppressive Industrial Drone Cut 5 - Goats",
+      "tags": [
+        "atmospheres",
+        "dark",
+        "dark,",
+        "drone",
+        "eugenio mininni",
+        "goats",
+        "industrial",
+        "oppressive"
+      ],
+      "artist": "Eugenio Mininni",
+      "duration": 212
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_6.mp3",
+      "source_url": "local_seed:horror tension",
+      "source_page": "local_seed:horror tension",
+      "bytes": 3243407,
+      "title": "Dark, Oppressive Industrial Drone Cut 6 - Variant 6",
+      "tags": [
+        "climax",
+        "dark",
+        "dark,",
+        "drone",
+        "horror",
+        "industrial",
+        "oppressive",
+        "surge",
+        "suspense",
+        "tension",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_7.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 9052021,
+      "title": "Dark, Oppressive Industrial Drone Cut 7 - Variant 7",
+      "tags": [
+        "dark",
+        "dark,",
+        "drone",
+        "eerie",
+        "industrial",
+        "intro",
+        "omen",
+        "oppressive",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_8.mp3",
+      "source_url": "local_seed:dark ambient",
+      "source_page": "local_seed:dark ambient",
+      "bytes": 3458238,
+      "title": "Dark, Oppressive Industrial Drone Cut 8 - Variant 8",
+      "tags": [
+        "ambient",
+        "dark",
+        "dark,",
+        "drone",
+        "industrial",
+        "oppressive",
+        "pulse",
+        "variant"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_9.mp3",
+      "source_url": "local_seed:dark mystery",
+      "source_page": "local_seed:dark mystery",
+      "bytes": 6099867,
+      "title": "Dark, Oppressive Industrial Drone Cut 9 - Variant 9",
+      "tags": [
+        "cautious",
+        "dark",
+        "dark,",
+        "drone",
+        "industrial",
+        "mystery",
+        "oppressive",
+        "variant",
+        "veil"
+      ],
+      "artist": "",
+      "duration": 0
+    },
+    {
+      "file": "assets/music/dark, oppressive industrial drone/seed_10.mp3",
+      "source_url": "local_seed:dark intro",
+      "source_page": "local_seed:dark intro",
+      "bytes": 3714156,
+      "title": "Dark, Oppressive Industrial Drone Cut 10 - Torn Threads",
+      "tags": [
+        "ahjay stelino",
+        "dark",
+        "dark,",
+        "drone",
+        "electronica",
+        "industrial",
+        "oppressive",
+        "threads",
+        "torn"
+      ],
+      "artist": "Ahjay Stelino",
+      "duration": 116
+    }
+  ]
+}
