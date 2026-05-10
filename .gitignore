@@ -140,8 +140,8 @@ assets/sfx/
 
 # ── TEST & SCRATCH FILES ──────────────────────────────────
 # File percobaan lokal — tidak perlu masuk repo
-test_*.py
-*_test.py
+/test_*.py
+/*_test.py
 testtts.py
 _test_*.py
 _check_*.py
