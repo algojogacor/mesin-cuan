@@ -4,6 +4,7 @@ Render video → QC Vision (Gemini) → auto-fix → upload ke GDrive queue → 
 
 Cara pakai:
   python main.py                                    → render sesuai campaigns.json
+  python main.py --setup                            → API Key Setup Wizard (isi key interaktif)
   python main.py --preview                          → lihat status slot campaign
   python main.py --channel ch_id_horror             → render 1 channel saja
   python main.py --dry-run                          → test tanpa upload ke GDrive
@@ -49,6 +50,198 @@ from engine.retention_engine import analyze_channel
 
 load_dotenv()
 logger = get_logger("main")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# API Key Wizard — input interaktif, tidak perlu edit .env manual
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Urutan: (nama_env, label, deskripsi, url_cara_dapat)
+API_KEY_SPECS = {
+    # ── WAJIB: tool tidak akan berfungsi tanpa ini ─────────────────────────
+    "required": [
+        ("GEMINI_API_KEY", "Google Gemini AI",
+         "AI utama untuk script generation & QC Vision",
+         "https://aistudio.google.com/apikey"),
+        ("QWEN_API_KEY", "Qwen DashScope",
+         "Dual parallel AI script generation (self-hosted endpoint)",
+         "https://dashscope.console.aliyun.com/apiKey"),
+        ("YOUTUBE_API_KEY", "YouTube Data API v3",
+         "Trending detection & topic discovery",
+         "https://console.cloud.google.com/apis/credentials"),
+        ("GROQ_API_KEY", "Groq",
+         "Fallback LLM cepat (chain: Ollama → Qwen → Groq)",
+         "https://console.groq.com/keys"),
+        ("GOOGLE_CLIENT_ID", "Google OAuth2 Client ID",
+         "Upload YouTube + Google Drive (dari Google Cloud Console)",
+         "https://console.cloud.google.com/apis/credentials"),
+        ("GOOGLE_CLIENT_SECRET", "Google OAuth2 Client Secret",
+         "Pasangan GOOGLE_CLIENT_ID — dari project yang sama",
+         "https://console.cloud.google.com/apis/credentials"),
+        ("TELEGRAM_BOT_TOKEN", "Telegram Bot Token",
+         "Notifikasi real-time via Telegram",
+         "https://t.me/BotFather (buat bot baru → copy token)"),
+        ("TELEGRAM_CHAT_ID", "Telegram Chat ID",
+         "Tujuan notifikasi (chat/user ID kamu)",
+         "https://t.me/userinfobot (forward pesan ke bot ini)"),
+    ],
+    # ── OPSIONAL: tool tetap jalan, fitur tertentu skip ────────────────────
+    "optional": [
+        ("PEXELS_API_KEY", "Pexels",
+         "B-roll footage & foto (skip → video tanpa footage)",
+         "https://www.pexels.com/api/"),
+        ("PIXABAY_API_KEY", "Pixabay",
+         "Footage fallback kalau Pexels habis kuota",
+         "https://pixabay.com/api/docs/"),
+        ("PERPLEXITY_API_KEY", "Perplexity",
+         "Web research engine — konteks akurat untuk naskah",
+         "https://www.perplexity.ai/settings/api"),
+        ("ANTHROPIC_API_KEY", "Anthropic Claude",
+         "Last-resort AI fallback (jarang dipakai)",
+         "https://console.anthropic.com/"),
+        ("NVIDIA_API_KEY", "NVIDIA NIM",
+         "Vision QC alternatif — gratis",
+         "https://build.nvidia.com/explore/discover"),
+        ("ASSEMBLYAI_API_KEY", "AssemblyAI",
+         "Transkrip podcast — opsional",
+         "https://www.assemblyai.com/app"),
+        ("ELEVENLABS_API_KEY", "ElevenLabs",
+         "TTS suara premium (fallback: Edge TTS gratis)",
+         "https://elevenlabs.io/app/settings/api-keys"),
+        ("FREESOUND_API_KEY", "Freesound",
+         "Sound effect otomatis berbasis niche",
+         "https://freesound.org/apiv2/apply/"),
+        ("CLOUDFLARE_ACCOUNT_ID", "Cloudflare Account ID",
+         "Scraping Google Trends via Browser Rendering",
+         "https://dash.cloudflare.com/"),
+        ("CLOUDFLARE_API_TOKEN", "Cloudflare API Token",
+         "Pasangan CLOUDFLARE_ACCOUNT_ID",
+         "https://dash.cloudflare.com/profile/api-tokens"),
+        ("COVERR_API_KEY", "Coverr",
+         "Stock video gratis — alternatif footage",
+         "https://coverr.co/"),
+        ("COVERR_APP_ID", "Coverr App ID",
+         "Pasangan COVERR_API_KEY",
+         "https://coverr.co/"),
+        ("GOOGLE_DRIVE_FOLDER_ID", "Google Drive Folder ID",
+         "Folder GDrive untuk antrian upload (auto-create kalau kosong)",
+         "https://drive.google.com (klik kanan folder → Share → Copy link)"),
+    ],
+}
+
+
+def _load_existing_env() -> dict:
+    """Baca .env yang sudah ada ke dict (abaikan komentar & baris kosong)."""
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    existing = {}
+    if os.path.exists(env_path):
+        with open(env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, _, val = line.partition("=")
+                val = val.strip().strip('"').strip("'")
+                if val:
+                    existing[key.strip()] = val
+    return existing
+
+
+def api_key_wizard():
+    """
+    Interactive API Key Setup Wizard.
+    Prompt pengguna untuk mengisi API key satu per satu — tidak perlu
+    buka dan edit file .env secara manual.
+
+    Fitur:
+    - Deteksi otomatis key yang sudah terisi (skip prompt)
+    - Tampilkan URL cara dapat key
+    - Tulis hasil ke .env (append, tidak overwrite)
+    - Bisa skip dengan menekan Enter
+    """
+    print()
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║        🔑 MESIN CUAN — API KEY SETUP WIZARD                 ║")
+    print("╠══════════════════════════════════════════════════════════════╣")
+    print("║  Isi API key satu per satu. Tekan ENTER untuk skip.         ║")
+    print("║  Key yang sudah ada di .env akan otomatis terdeteksi.       ║")
+    print("╚══════════════════════════════════════════════════════════════╝")
+    print()
+
+    existing = _load_existing_env()
+    new_values = {}
+    skipped_required = []
+
+    for category, label in [("required", "🔴 WAJIB"), ("optional", "🟡 OPSIONAL")]:
+        print(f"  ── {label} ──")
+        print()
+        for env_key, name, desc, url in API_KEY_SPECS[category]:
+            current = existing.get(env_key, "")
+            status = " ✅ (sudah terisi)" if current else ""
+            print(f"  📌 {name}")
+            print(f"     {desc}")
+            if url:
+                print(f"     🔗 {url}")
+            if current:
+                masked = current[:8] + "..." if len(current) > 8 else current
+                print(f"     Saat ini: {masked}{status}")
+                print(f"     [ENTER untuk keep]")
+            else:
+                print(f"     [Kosong — ketik key atau ENTER untuk skip]")
+
+            try:
+                val = input(f"     {env_key} = ").strip()
+            except (EOFError, KeyboardInterrupt):
+                print("\n\n  ⚠️  Setup dibatalkan. Key yang sudah diisi tetap tersimpan.\n")
+                break
+
+            if val:
+                new_values[env_key] = val
+            elif not current and category == "required":
+                skipped_required.append(env_key)
+
+            print()
+
+    if not new_values:
+        print("  ℹ️  Tidak ada key baru yang diisi.\n")
+        return
+
+    # Tulis ke .env
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if not os.path.exists(env_path):
+        # Copy dari .env.example dulu
+        example_path = os.path.join(os.path.dirname(__file__), ".env.example")
+        if os.path.exists(example_path):
+            import shutil as _shutil
+            _shutil.copy(example_path, env_path)
+
+    # Baca ulang .env dan replace value
+    with open(env_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    updated_keys = set()
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key = stripped.split("=", 1)[0].strip()
+        if key in new_values:
+            lines[i] = f"{key}={new_values[key]}\n"
+            updated_keys.add(key)
+
+    # Append key yang belum ada di .env
+    for key, val in new_values.items():
+        if key not in updated_keys:
+            lines.append(f"{key}={val}\n")
+
+    with open(env_path, "w", encoding="utf-8") as f:
+        f.writelines(lines)
+
+    print(f"  ✅ {len(new_values)} key disimpan ke .env\n")
+    if skipped_required:
+        print(f"  ⚠️  Peringatan: {len(skipped_required)} key WAJIB masih kosong.")
+        print(f"     Tool mungkin tidak berfungsi penuh tanpa key tersebut.")
+        print(f"     Jalankan `python main.py --setup` lagi kapan saja.\n")
 
 
 # ─── Auto-Cleanup (Disk Management) ──────────────────────────────────────────
@@ -1112,9 +1305,15 @@ if __name__ == "__main__":
     parser.add_argument("--review-hook", help="Audit dan upgrade hook saja dari file script JSON yang sudah ada")
     parser.add_argument("--script-only", action="store_true", help="Generate script saja tanpa TTS/render/upload")
     parser.add_argument("--debug",    action="store_true", help="Enable verbose debug logging")
+    parser.add_argument("--setup",    action="store_true", help="🔑 API Key Setup Wizard — isi key interaktif tanpa edit .env")
     parser.add_argument("--profile",  choices=["shorts", "long_form", "all"],
                         default="all", help="Render profile tertentu (legacy mode)")
     args = parser.parse_args()
+
+    # ── Setup Wizard — keluar setelah selesai ─────────────────────────────────
+    if args.setup:
+        api_key_wizard()
+        raise SystemExit(0)
 
     # ── Debug mode: set root logger ke DEBUG ──────────────────────────────────
     if args.debug:
