@@ -8,7 +8,6 @@ Folder: /mesin_cuan/queue/{channel_id}/{timestamp}/
 
 import os
 import json
-import pickle
 import tempfile
 from engine.utils import get_logger, timestamp
 
@@ -59,21 +58,22 @@ def upload_to_queue(video_path: str, thumbnail_path: str, metadata: dict, channe
 
 def _get_drive_service(channel: dict):
     from googleapiclient.discovery import build
+    from google.oauth2.credentials import Credentials
 
     cred_file  = channel.get("credentials_file", "")
-    token_file = cred_file.replace("_token.json", "_token_token.pickle")
+    token_file = cred_file.replace("_token.json", "_v2.json")
 
     if not os.path.exists(token_file):
         raise FileNotFoundError(f"Token tidak ditemukan: {token_file}")
 
-    with open(token_file, "rb") as f:
-        creds = pickle.load(f)
+    with open(token_file, "r", encoding="utf-8") as f:
+        creds = Credentials.from_json(f.read())
 
     if creds.expired and creds.refresh_token:
         from google.auth.transport.requests import Request
         creds.refresh(Request())
-        with open(token_file, "wb") as f:
-            pickle.dump(creds, f)
+        with open(token_file, "w", encoding="utf-8") as f:
+            f.write(creds.to_json())
 
     return build("drive", "v3", credentials=creds)
 

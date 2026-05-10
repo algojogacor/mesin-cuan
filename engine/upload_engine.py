@@ -25,7 +25,7 @@ _last_upload_time: float = 0.0
 def upload(video_path: str, thumbnail_path: str, metadata: dict, channel: dict, **kwargs) -> str:
     ch_id      = channel["id"]
     cred_file  = channel.get("credentials_file", "")
-    token_file = cred_file.replace("_token.json", "_token_token.pickle")
+    token_file = cred_file.replace("_token.json", "_v2.json")
 
     if not os.path.exists(token_file):
         raise FileNotFoundError(
@@ -98,25 +98,24 @@ def _record_upload_time():
 def _get_youtube_client(cred_file: str):
     """
     Load OAuth token untuk channel ini.
-    Token file: cred_file ganti _token.json → _token_token.pickle
+    Token file: cred_file ganti _token.json → _v2.json
     """
     from google.oauth2.credentials import Credentials
     from google.auth.transport.requests import Request
     from googleapiclient.discovery import build
-    import pickle
 
     creds      = None
-    token_file = cred_file.replace("_token.json", "_token_token.pickle")
+    token_file = cred_file.replace("_token.json", "_v2.json")
 
     if os.path.exists(token_file):
-        with open(token_file, "rb") as f:
-            creds = pickle.load(f)
+        with open(token_file, "r", encoding="utf-8") as f:
+            creds = Credentials.from_json(f.read())
 
     if creds and creds.expired and creds.refresh_token:
         try:
             creds.refresh(Request())
-            with open(token_file, "wb") as f:
-                pickle.dump(creds, f)
+            with open(token_file, "w", encoding="utf-8") as f:
+                f.write(creds.to_json())
         except Exception as e:
             logger.warning(f"Token refresh failed: {e}")
             creds = None
