@@ -220,24 +220,32 @@ python main.py --debug
 
 ## 🔑 API Key Reference
 
-### 🔴 WAJIB — Alat tidak akan berfungsi tanpa ini
+### 🔴 WAJIB — Pipeline tidak berfungsi tanpa ini
 
 | Key | Provider | Fungsi | Cara Dapat |
 |---|---|---|---|
-| `GEMINI_API_KEY` | Google Gemini | AI utama — script generation & QC Vision | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
-| `QWEN_API_KEY` | Qwen DashScope | Dual parallel AI script generation | [dashscope.console.aliyun.com](https://dashscope.console.aliyun.com/apiKey) |
 | `YOUTUBE_API_KEY` | YouTube Data API v3 | Trending detection & topic discovery | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
-| `GROQ_API_KEY` | Groq | Fallback LLM (chain: Ollama → Qwen → Groq) | [console.groq.com/keys](https://console.groq.com/keys) |
+| `PEXELS_API_KEY` | Pexels | B-roll footage & foto | [pexels.com/api](https://www.pexels.com/api/) |
 | `GOOGLE_CLIENT_ID` | Google OAuth2 | Upload YouTube + Google Drive | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth2 | Pasangan GOOGLE_CLIENT_ID | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `GOOGLE_DRIVE_FOLDER_ID` | Google Drive | Folder antrian upload | Klik kanan folder GDrive → Share → Copy link |
 | `TELEGRAM_BOT_TOKEN` | Telegram Bot API | Notifikasi real-time | [@BotFather](https://t.me/BotFather) |
 | `TELEGRAM_CHAT_ID` | Telegram | Tujuan notifikasi | [@userinfobot](https://t.me/userinfobot) |
+
+### 🟠 AI Provider — Minimal 1, rekomendasi isi semua untuk fallback
+
+| Key | Provider | Fungsi | Cara Dapat |
+|---|---|---|---|
+| `GEMINI_API_KEY` | Google Gemini | **Rekomendasi** — script generation & QC Vision | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| `QWEN_API_KEY` | Qwen DashScope | Dual parallel AI script generation | [dashscope.console.aliyun.com](https://dashscope.console.aliyun.com/apiKey) |
+| `GROQ_API_KEY` | Groq | Fallback LLM cepat | [console.groq.com/keys](https://console.groq.com/keys) |
+
+> ⚠️ Tanpa AI Provider, script generation tidak bisa jalan. Isi minimal 1.
 
 ### 🟡 OPSIONAL — Tool tetap jalan, fitur tertentu skip
 
 | Key | Provider | Fungsi | Dampak Jika Kosong |
 |---|---|---|---|
-| `PEXELS_API_KEY` | Pexels | B-roll footage & foto | Video tanpa footage visual |
 | `PIXABAY_API_KEY` | Pixabay | Footage fallback | Fallback footage tidak tersedia |
 | `PERPLEXITY_API_KEY` | Perplexity | Web research — konteks akurat | Research pakai Ollama lokal |
 | `ANTHROPIC_API_KEY` | Anthropic | Last-resort AI fallback | Hanya 3 tier fallback |
@@ -248,7 +256,7 @@ python main.py --debug
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare | Google Trends scraping | Trending detection terbatas |
 | `CLOUDFLARE_API_TOKEN` | Cloudflare | Pasangan ACCOUNT_ID | — |
 | `COVERR_API_KEY` | Coverr | Stock video gratis | Alternatif footage |
-| `GOOGLE_DRIVE_FOLDER_ID` | Google Drive | Folder antrian upload | Auto-create folder baru |
+| `COVERR_APP_ID` | Coverr | Pasangan COVERR_API_KEY | — |
 
 > 💡 **Pro tip:** Jalankan `python main.py --setup` untuk setup wizard interaktif — tidak perlu edit `.env` manual!
 
