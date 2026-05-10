@@ -6,7 +6,7 @@ If you discover a security vulnerability in mesin-cuan, please **do not** open a
 
 Instead, contact the maintainer directly:
 
-- Email: [Your contact email]
+- Email: aryarizkyardhipratama@gmail.com
 - GitHub: Message [@algojogacor](https://github.com/algojogacor)
 
 Please include:
