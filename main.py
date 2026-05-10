@@ -58,26 +58,23 @@ logger = get_logger("main")
 
 # Urutan: (nama_env, label, deskripsi, url_cara_dapat)
 API_KEY_SPECS = {
-    # ── WAJIB: tool tidak akan berfungsi tanpa ini ─────────────────────────
+    # ── WAJIB: pipeline tidak akan berfungsi tanpa ini ─────────────────────
     "required": [
-        ("GEMINI_API_KEY", "Google Gemini AI",
-         "AI utama untuk script generation & QC Vision",
-         "https://aistudio.google.com/apikey"),
-        ("QWEN_API_KEY", "Qwen DashScope",
-         "Dual parallel AI script generation (self-hosted endpoint)",
-         "https://dashscope.console.aliyun.com/apiKey"),
         ("YOUTUBE_API_KEY", "YouTube Data API v3",
          "Trending detection & topic discovery",
          "https://console.cloud.google.com/apis/credentials"),
-        ("GROQ_API_KEY", "Groq",
-         "Fallback LLM cepat (chain: Ollama → Qwen → Groq)",
-         "https://console.groq.com/keys"),
+        ("PEXELS_API_KEY", "Pexels",
+         "B-roll footage & foto — video tanpa footage kalau kosong",
+         "https://www.pexels.com/api/"),
         ("GOOGLE_CLIENT_ID", "Google OAuth2 Client ID",
          "Upload YouTube + Google Drive (dari Google Cloud Console)",
          "https://console.cloud.google.com/apis/credentials"),
         ("GOOGLE_CLIENT_SECRET", "Google OAuth2 Client Secret",
          "Pasangan GOOGLE_CLIENT_ID — dari project yang sama",
          "https://console.cloud.google.com/apis/credentials"),
+        ("GOOGLE_DRIVE_FOLDER_ID", "Google Drive Folder ID",
+         "Folder GDrive untuk antrian upload",
+         "https://drive.google.com (klik kanan folder → Share → Copy link)"),
         ("TELEGRAM_BOT_TOKEN", "Telegram Bot Token",
          "Notifikasi real-time via Telegram",
          "https://t.me/BotFather (buat bot baru → copy token)"),
@@ -85,11 +82,20 @@ API_KEY_SPECS = {
          "Tujuan notifikasi (chat/user ID kamu)",
          "https://t.me/userinfobot (forward pesan ke bot ini)"),
     ],
+    # ── AI PROVIDER: minimal 1, rekomendasi isi semua untuk fallback ───────
+    "ai_provider": [
+        ("GEMINI_API_KEY", "Google Gemini AI",
+         "AI utama — script generation & QC Vision (REKOMENDASI)",
+         "https://aistudio.google.com/apikey"),
+        ("QWEN_API_KEY", "Qwen DashScope",
+         "Dual parallel AI script generation",
+         "https://dashscope.console.aliyun.com/apiKey"),
+        ("GROQ_API_KEY", "Groq",
+         "Fallback LLM cepat",
+         "https://console.groq.com/keys"),
+    ],
     # ── OPSIONAL: tool tetap jalan, fitur tertentu skip ────────────────────
     "optional": [
-        ("PEXELS_API_KEY", "Pexels",
-         "B-roll footage & foto (skip → video tanpa footage)",
-         "https://www.pexels.com/api/"),
         ("PIXABAY_API_KEY", "Pixabay",
          "Footage fallback kalau Pexels habis kuota",
          "https://pixabay.com/api/docs/"),
@@ -123,9 +129,6 @@ API_KEY_SPECS = {
         ("COVERR_APP_ID", "Coverr App ID",
          "Pasangan COVERR_API_KEY",
          "https://coverr.co/"),
-        ("GOOGLE_DRIVE_FOLDER_ID", "Google Drive Folder ID",
-         "Folder GDrive untuk antrian upload (auto-create kalau kosong)",
-         "https://drive.google.com (klik kanan folder → Share → Copy link)"),
     ],
 }
 
@@ -171,8 +174,15 @@ def api_key_wizard():
     existing = _load_existing_env()
     new_values = {}
     skipped_required = []
+    ai_provider_count = 0
 
-    for category, label in [("required", "🔴 WAJIB"), ("optional", "🟡 OPSIONAL")]:
+    category_labels = [
+        ("required", "🔴 WAJIB — harus diisi"),
+        ("ai_provider", "🟠 AI PROVIDER — minimal 1, rekomendasi isi semua"),
+        ("optional", "🟡 OPSIONAL — isi jika perlu"),
+    ]
+
+    for category, label in category_labels:
         print(f"  ── {label} ──")
         print()
         for env_key, name, desc, url in API_KEY_SPECS[category]:
@@ -197,6 +207,8 @@ def api_key_wizard():
 
             if val:
                 new_values[env_key] = val
+                if category == "ai_provider":
+                    ai_provider_count += 1
             elif not current and category == "required":
                 skipped_required.append(env_key)
 
@@ -242,6 +254,14 @@ def api_key_wizard():
         print(f"  ⚠️  Peringatan: {len(skipped_required)} key WAJIB masih kosong.")
         print(f"     Tool mungkin tidak berfungsi penuh tanpa key tersebut.")
         print(f"     Jalankan `python main.py --setup` lagi kapan saja.\n")
+    if ai_provider_count == 0:
+        # Cek apakah sudah ada AI key di existing (sebelum wizard)
+        existing_ai = sum(1 for k in ["GEMINI_API_KEY", "QWEN_API_KEY", "GROQ_API_KEY"]
+                         if existing.get(k))
+        if existing_ai == 0:
+            print(f"  ⚠️  Peringatan: tidak ada AI Provider yang diisi!")
+            print(f"     Minimal isi 1 (rekomendasi: GEMINI_API_KEY).")
+            print(f"     Tanpa AI, script generation tidak akan berjalan.\n")
 
 
 # ─── Auto-Cleanup (Disk Management) ──────────────────────────────────────────
