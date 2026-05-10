@@ -424,9 +424,9 @@ def _split_tagged_segments(text: str) -> List[Tuple[str, str]]:
     return segments if segments else [("NORMAL", text.strip())]
 
 
-def _apply_segment_audio_filter(src_path: str, dst_path: str, tag: str) -> None:
+async def _apply_segment_audio_filter_async(src_path: str, dst_path: str, tag: str) -> None:
     """
-    Apply FFmpeg audio filter per segmen berdasarkan tag.
+    Apply FFmpeg audio filter per segmen berdasarkan tag (Async).
     NORMAL → copy langsung (tidak ada processing)
     LOUD/QUIET/SLOW → apply filter dari TAG_AUDIO_FILTERS
     """
@@ -444,20 +444,27 @@ def _apply_segment_audio_filter(src_path: str, dst_path: str, tag: str) -> None:
         "-threads", str(AUDIO_FFMPEG_THREADS),
         dst_path,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        logger.warning(f"[tag_filter][{tag}] warn: {result.stderr[-300:]}")
+    proc = await asyncio.create_subprocess_exec(
+        *cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await proc.communicate()
+
+    if proc.returncode != 0:
+        err_msg = stderr.decode().strip()
+        logger.warning(f"[tag_filter][{tag}] warn: {err_msg[-300:]}")
 
 
-def _concat_audio_segments(segment_paths: List[str], out_path: str) -> None:
+async def _concat_audio_segments_async(segment_paths: List[str], out_path: str) -> None:
     """
-    Gabung semua segmen MP3 → apply loudnorm final.
+    Gabung semua segmen MP3 → apply loudnorm final (Async).
     Loudnorm HANYA dilakukan sekali di sini (bukan per-segmen)
     agar efek LOUD/QUIET tetap terasa relatif satu sama lain.
     """
     if len(segment_paths) == 1:
         # Satu segmen: langsung optimize tanpa concat
-        _optimize_audio(segment_paths[0], out_path, apply_loudnorm=True)
+        await _optimize_audio_async(segment_paths[0], out_path, apply_loudnorm=True)
         return
 
     # Tulis concat list file
@@ -475,19 +482,36 @@ def _concat_audio_segments(segment_paths: List[str], out_path: str) -> None:
         "-c", "copy",           # Stream copy — tidak re-encode, sangat cepat
         concat_tmp,
     ]
-    result = subprocess.run(cmd_concat, capture_output=True, text=True)
-    if result.returncode != 0:
-        logger.warning(f"[concat_segments] warn: {result.stderr[-400:]}")
+    proc = await asyncio.create_subprocess_exec(
+        *cmd_concat,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await proc.communicate()
+
+    if proc.returncode != 0:
+        err_msg = stderr.decode().strip()
+        logger.warning(f"[concat_segments] warn: {err_msg[-400:]}")
 
     os.remove(list_file_path)
 
     # Apply loudnorm final — satu pass untuk semua segmen
-    _optimize_audio(concat_tmp, out_path, apply_loudnorm=True)
+    await _optimize_audio_async(concat_tmp, out_path, apply_loudnorm=True)
 
     try:
         os.remove(concat_tmp)
     except OSError:
         pass
+
+
+def _apply_segment_audio_filter(src_path: str, dst_path: str, tag: str) -> None:
+    """Synchronous wrapper for _apply_segment_audio_filter_async."""
+    asyncio.run(_apply_segment_audio_filter_async(src_path, dst_path, tag))
+
+
+def _concat_audio_segments(segment_paths: List[str], out_path: str) -> None:
+    """Synchronous wrapper for _concat_audio_segments_async."""
+    asyncio.run(_concat_audio_segments_async(segment_paths, out_path))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -609,7 +633,7 @@ async def _run_edge_tts_async(text: str, niche: str, language: str,
                 raw_mp3 = out_path + ".raw.mp3"
                 communicator = edge_tts.Communicate(text, voice, rate=rate)
                 await communicator.save(raw_mp3)
-                _optimize_audio(raw_mp3, out_path, apply_loudnorm=True)
+                await _optimize_audio_async(raw_mp3, out_path, apply_loudnorm=True)
                 try:
                     os.remove(raw_mp3)
                 except OSError:
@@ -665,7 +689,7 @@ async def _render_tagged_segments(text: str, voice: str,
         await communicator.save(raw_path)
 
         # Apply per-segmen filter (TANPA loudnorm — dilakukan di concat)
-        _apply_segment_audio_filter(raw_path, effect_path, tag)
+        await _apply_segment_audio_filter_async(raw_path, effect_path, tag)
         seg_paths.append(effect_path)
 
         try:
@@ -674,7 +698,7 @@ async def _render_tagged_segments(text: str, voice: str,
             pass
 
     # Gabung semua segmen + loudnorm final
-    _concat_audio_segments(seg_paths, out_path)
+    await _concat_audio_segments_async(seg_paths, out_path)
 
     shutil.rmtree(tmp_dir, ignore_errors=True)
 
@@ -785,11 +809,11 @@ def _run_f5_tts(text: str, voice_sample_path: str,
 #  AUDIO OPTIMIZATION (SHARED)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _optimize_audio(src_path: str, dst_path: str,
-                    speed: float = 1.0,
-                    apply_loudnorm: bool = True) -> None:
+async def _optimize_audio_async(src_path: str, dst_path: str,
+                          speed: float = 1.0,
+                          apply_loudnorm: bool = True) -> None:
     """
-    Konversi & optimasi audio ke standar broadcast YouTube:
+    Konversi & optimasi audio ke standar broadcast YouTube (Async):
     - Sample rate: AUDIO_OUTPUT_SAMPLERATE (48kHz)
     - Bitrate: AUDIO_OUTPUT_BITRATE (192kbps MP3)
     - Loudnorm: AUDIO_LOUDNORM_TARGET LUFS (hanya jika apply_loudnorm=True)
@@ -828,9 +852,23 @@ def _optimize_audio(src_path: str, dst_path: str,
         dst_path,
     ]
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        logger.warning(f"[optimize_audio] warn: {result.stderr[-300:]}")
+    proc = await asyncio.create_subprocess_exec(
+        *cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await proc.communicate()
+
+    if proc.returncode != 0:
+        err_msg = stderr.decode().strip()
+        logger.warning(f"[optimize_audio] warn: {err_msg[-300:]}")
+
+
+def _optimize_audio(src_path: str, dst_path: str,
+                    speed: float = 1.0,
+                    apply_loudnorm: bool = True) -> None:
+    """Synchronous wrapper for _optimize_audio_async."""
+    asyncio.run(_optimize_audio_async(src_path, dst_path, speed, apply_loudnorm))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
